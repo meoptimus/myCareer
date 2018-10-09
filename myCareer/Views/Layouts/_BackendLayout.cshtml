@@ -1,0 +1,166 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link rel="shortcut icon" href="img/favicon.ico">
+    <!--STYLESHEET-->
+    <!--=================================================-->
+    <!--Roboto Slab Font [ OPTIONAL ] -->
+    <link href="http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,100,700" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Roboto:500,400italic,100,700italic,300,700,500italic,400" rel="stylesheet">
+    <!--Bootstrap Stylesheet [ REQUIRED ]-->
+    <script src="@Url.Content("~/Content/Backend/js/jquery-2.1.1.min.js")"></script>
+
+    <link href="@Url.Content("~/Content/Backend/css/bootstrap.min.css")" rel="stylesheet">
+    <!--Jasmine Stylesheet [ REQUIRED ]-->
+    <link href="@Url.Content("~/Content/Backend/css/style.css")" rel="stylesheet">
+    <!--Font Awesome [ OPTIONAL ]-->
+    <link href="@Url.Content("~/Content/Backend/plugins/font-awesome/css/font-awesome.min.css")" rel="stylesheet">
+
+    <link href="@Url.Content("~/Content/Backend/css/demo/jasmine.css")" rel="stylesheet">
+    <!--SCRIPT-->
+    <!--=================================================-->
+    <!--Page Load Progress Bar [ OPTIONAL ]-->
+    <link href="@Url.Content("~/Content/Backend/plugins/pace/pace.min.css")" rel="stylesheet">
+    <script src="@Url.Content("~/Content/Backend/plugins/pace/pace.min.js")"></script>
+    <link href="~/Content/jquery-confirm/css/jquery-confirm.css" rel="stylesheet" />
+    @RenderSection("head", required: false)
+
+
+</head>
+<body>
+    <div id="container" class="effect mainnav-lg navbar-fixed mainnav-fixed">
+        <!--NAVBAR-->
+        <!--===================================================-->
+        <header id="navbar">
+            <div id="navbar-container" class="boxed">
+                <!--Brand logo & name-->
+                <!--================================-->
+                <div class="navbar-header">
+                    <a href="index.html" class="navbar-brand">
+                        <i class="fa fa-cube brand-icon"></i>
+                        <div class="brand-title">
+                            <span class="brand-text">JOB PORTAL</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="navbar-content clearfix">
+                    <ul class="nav navbar-top-links pull-left">
+                        <li
+                           i class="tgl-menu-btn">
+                            <a class="mainnav-toggle" href="#"> <i class="fa fa-navicon fa-lg"></i> </a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-top-links pull-right">
+                        <li id="dropdown-user" class="dropdown">
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle text-right">
+                                <span class="pull-right"> <img class="img-circle img-user media-object" src="@Url.Content("~/Content/Backend/img/av1.png")" alt="Profile Picture"> </span>
+                                <div class="username hidden-xs">Admin</div>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right with-arrow">
+                                <ul class="head-list">
+                                    <li>
+                                        <a href="@Url.Action("logout","login")"> <i class="fa fa-sign-out fa-fw"></i> Logout </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+        <div class="boxed">
+            <div id="content-container">
+                <div id="page-content">
+                    @RenderBody()
+                </div>
+                <nav id="mainnav-container">
+                    <div id="mainnav">
+                        <div id="mainnav-menu-wrap">
+                            <div class="nano">
+                                <div class="nano-content">
+                                    <ul id="mainnav-menu" class="list-group">
+                                        <li @if (ViewBag.active == "employerlist") { <text> class="active" </text>  }>
+                                            <a href="@Url.Action("employersList","Backend")">
+                                                <i class="fa fa-calendar"></i>
+                                                <span class="menu-title">
+                                                    Employers
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li @if (ViewBag.active == "jobseekerlist") { <text> class="active" </text>  }>
+
+                                            <a href="@Url.Action("jobseekersList","Backend")">
+                                                <i class="fa fa-flask"></i>
+                                                <span class="menu-title">
+                                                    Jobseekers
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li @if (ViewBag.active == "industries") { <text> class="active" </text>  }>
+                                            <a href="@Url.Action("Industries","Backend")">
+                                                <i class="fa fa-flask"></i>
+                                                <span class="menu-title">
+                                                    Industries
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li @if (ViewBag.active == "jobs") {<text>class="active"</text> }>
+                                            <a href="@Url.Action("jobs","Backend")">
+                                                <i class="fa fa-flask"></i>
+                                                <span class="menu-title">
+                                                    Jobs
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li @if (ViewBag.active == "applications") {<text>class="active"</text> }>
+                                            <a href="@Url.Action("applications","Backend")">
+                                                <i class="fa fa-flask"></i>
+                                                <span class="menu-title">
+                                                   Job Applications
+                                                </span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+
+            </div>
+            <!-- FOOTER -->
+            <!--===================================================-->
+            <footer id="footer">
+                <!-- Visible when footer positions are static -->
+                <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+                <div class="hide-fixed pull-right pad-rgt">Currently v2.2</div>
+                <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+                <!-- Remove the class name "show-fixed" and "hide-fixed" to make the content always appears. -->
+                <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+                <p class="pad-lft">&#0169; 2015 NepalTech Solutions</p>
+            </footer>
+            <!--===================================================-->
+            <!-- END FOOTER -->
+            <!-- SCROLL TOP BUTTON -->
+            <!--===================================================-->
+            <button id="scroll-top" class="btn"><i class="fa fa-chevron-up"></i></button>
+            <!--===================================================-->
+        </div>
+        <!--JAVASCRIPT-->
+        <!--=================================================-->
+        <!--jQuery [ REQUIRED ]-->
+        <!--BootstrapJS [ RECOMMENDED ]-->
+        <script src="@Url.Content("~/Content/Backend/js/bootstrap.min.js")"></script>
+        <!--Jasmine Admin [ RECOMMENDED ]-->
+        <script src="@Url.Content("~/Content/Backend/js/scripts.js")"></script>
+        <!--Jquery Nano Scroller js [ REQUIRED ]-->
+        <script src="@Url.Content("~/Content/Backend/plugins/nanoscrollerjs/jquery.nanoscroller.min.js")"></script>
+        <!--Merismenu js [ REQUIRED ]-->
+        <script src="@Url.Content("~/Content/Backend/plugins/metismenu/metismenu.min.js")"></script>
+        <script src="@Url.Content("~/Content/jquery-confirm/jquery-confirm.js")"></script>
+
+</body>
+</html>

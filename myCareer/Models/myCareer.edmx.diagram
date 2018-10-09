@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="719fa964d29a4671b345410ec3ef5bc4" Name="Diagram1">
+        <EntityTypeShape EntityType="myCareerModel.application" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="myCareerModel.company_type" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="myCareerModel.employer_info" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="myCareerModel.interest" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="myCareerModel.job_categories" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="myCareerModel.jobseeker_info" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="myCareerModel.nepal_district" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="myCareerModel.registration_type" Width="1.5" PointX="8.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="myCareerModel.shortlist" Width="1.5" PointX="8.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="myCareerModel.user" Width="1.5" PointX="5" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="myCareerModel.js_experience" Width="1.5" PointX="5.375" PointY="9.75" />
+        <EntityTypeShape EntityType="myCareerModel.jobseeker_education" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="myCareerModel.message" Width="1.5" PointX="7.375" PointY="9.75" />
+        <EntityTypeShape EntityType="myCareerModel.email_verification" Width="1.5" PointX="9.375" PointY="9.75" />
+        <EntityTypeShape EntityType="myCareerModel.itemset" Width="1.5" PointX="11.375" PointY="0.75" />
+        <EntityTypeShape EntityType="myCareerModel.job" Width="1.5" PointX="11.375" PointY="3.75" />
+        <EntityTypeShape EntityType="myCareerModel.tbl_cv" Width="1.5" PointX="11.375" PointY="9.75" />
+        <EntityTypeShape EntityType="myCareerModel.employer_social" Width="1.5" PointX="0.75" PointY="12.75" />
+        <EntityTypeShape EntityType="myCareerModel.sysdiagram" Width="1.5" PointX="2.75" PointY="12.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

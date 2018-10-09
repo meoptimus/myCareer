@@ -1,0 +1,170 @@
+﻿@model myCareer.Models.employer
+
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Layouts/Frontend/_Frontend.cshtml";
+}
+@section head
+{
+    <link href="~/Content/Backend/AdminLTE.css" rel="stylesheet" />
+}
+
+<div class="container">
+    <div class="careerfy-employer-box-section">
+        <div class="row">
+@using (Html.BeginForm("Register", "Employer", FormMethod.Post, new { @id = "emp_info", @name = "emp_info" , @enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Basic Details:</h3>
+                </div>
+                <div class="box-body">
+
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label>Company Type:</label>
+                                @Html.DropDownListFor(model=>model.company_type, ViewBag.category as IEnumerable<SelectListItem>)
+                                @Html.ValidationMessageFor(model => model.company_type, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Company Name:</label>
+                                @Html.EditorFor(model => model.company_name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.company_name, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Registration Type:</label>
+                                @Html.DropDownListFor(model => model.reg_type, ViewBag.registration_type as IEnumerable<SelectListItem>)
+                                @Html.ValidationMessageFor(model => model.reg_type, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label>Company Description:</label>
+                                @Html.TextAreaFor(model => model.description, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group col-md-4">
+                                    <label>Company Phone:</label>
+                                @Html.EditorFor(model => model.phone, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.phone, "", new { @class = "text-danger" })
+                                </div>
+                            <div class="form-group col-md-4">
+                                    <label>Company Address:</label>
+                                @Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
+                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label>Representative Name:</label>
+                                @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Representative Email:</label>
+                                @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control",@type="email" } })
+                                @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Representative Contact:</label>
+                                @Html.EditorFor(model => model.contact, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.contact, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                 </div>
+            </div>
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Login Details:</h3>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label>Username:</label>
+                            @Html.EditorFor(model => model.user_name, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.user_name, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Password:</label>
+                            @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Confirm Password:</label>
+                            @Html.EditorFor(model => model.confirm_password, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.confirm_password, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Logo:</label>
+                            <input type="file" class="form-control" name="logo" id="logo"/>
+                            @*@Html.TextBoxFor(model => model.logo, new { type = "file", @class="form-control" })
+                            @Html.ValidationMessageFor(model => model.logo, "", new { @class = "text-danger" })*@
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-11 pull-right">
+                                <button  class="btn btn-primary" id="btnSubmit" type="submit"  >Create </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            }
+            </div>
+        </div>
+    </div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script type="text/javascript">
+        @*$(document).ready(function () {
+            $('#btnSubmit').click(function () {
+                if ($("#emp_info").valid())
+                { 
+                   $('#emp_info').removeData('validator');
+                   $('#emp_info').removeData('unobtrusiveValidation');
+                   $.validator.unobtrusive.parse( $('#emp_info'));
+                        $('#emp_info').submit(); 
+                }
+                else
+                {
+                    //alert("Invalid");
+                }
+            });
+
+            $("#emp_info").on("submit", function (event) {
+                event.preventDefault();
+                $("#loading").show();
+                $('#btnSubmit').attr('disabled', 'disabled');
+                var url = $(this).attr("action");
+                var formData = $(this).serialize();
+                    $.ajax({
+                        url: url,
+                        type: "POST",
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        success: function (response) {
+                            alert(response.successMsg);
+                            $('#btnSubmit').removeAttr('disabled');
+                            console.log(response);
+
+                        },
+                        error: function (response) {
+                            console.log("Invalid form data");
+                            $('#btnSubmit').removeAttr('disabled');
+                        },
+                        complete: function () {
+                            $('#btnSubmit').removeAttr('disabled');
+                            $('#emp_info')[0].reset();
+                            @*window.location.replace("@Url.Action("employerprofile","employer") ");
+                        }
+                    });
+            });
+        });*@
+
+</script>
+

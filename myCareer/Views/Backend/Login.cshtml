@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Login </title>
+    <link rel="shortcut icon" href="img/favicon.ico">
+    <link href="http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,100,700" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Roboto:500,400italic,100,700italic,300,700,500italic,400" rel="stylesheet">
+    <link href="@Url.Content("~/Content/Backend/css/bootstrap.min.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/Backend/css/style.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/Backend/plugins/font-awesome/css/font-awesome.min.css")" rel="stylesheet">
+</head>
+<body>
+    <div id="container" class="cls-container">
+        <div class="lock-wrapper">
+            <div class="panel lock-box">
+                <div class="center"> <img alt="" src="@Url.Content("~/Content/Backend/img/user.png")" class="img-circle" /> </div>
+                <h4></h4>
+                @if (ViewBag.error==true)
+                {
+                    <div class="alert alert-danger">@ViewBag.errorMsg</div>
+                }
+                <div class="row">
+                    <form action="@Url.Action("index","Backend") " class="form-inline" method="post">
+                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                            <div class="text-left">
+                                <label class="text-muted">Username:</label>
+                                <input name="username" type="text" placeholder="Enter Username" class="form-control" required />
+                            </div>
+                            <div class="text-left">
+                                <label for="password" class="text-muted">Password</label>
+                                <input name="password" type="password" placeholder="Password" class="form-control lock-input" required />
+                            </div>
+                            <div class="pull-left pad-btm">
+                                <label class="form-checkbox form-icon form-text">
+                                    <input type="checkbox"> Remember Me
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn-block btn-primary">
+                                Sign In
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            @*<div class="registration"> Don't have an account ! <a href="#/pages/signup"> <span class="text-primary"> Sign Up </span> </a> </div>*@
+        </div>
+    </div>
+</body>
+</html>

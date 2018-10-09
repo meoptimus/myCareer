@@ -1,0 +1,215 @@
+﻿@model myCareer.Models.HomeViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Layouts/Frontend/_Frontend.cshtml";
+    ViewBag.activeNav = "home";
+}
+<div class="careerfy-banner careerfy-typo-wrap">
+    <span class="careerfy-banner-transparent"></span>
+    <div class="careerfy-banner-caption">
+        <div class="container">
+            <h1>Aim Higher. Reach Farther. Dream Bigger.</h1>
+            <p>A better career is out there. We'll help you find it to use.</p>
+        @using (Html.BeginForm("joblisting", "home", FormMethod.Get, new { id = "job_info", name = "job_info", enctype = "multipart/form-data", @class="careerfy-banner-search" }))
+        {
+                <ul>
+                    <li>
+                        <input placeholder="Job Title, Keywords, or Company"  type="text" name="keyword">
+                    </li>
+                    <li>
+                        <input placeholder="City, State or ZIP" type="text" name="city">
+                        <i class="careerfy-icon careerfy-location"></i>
+                    </li>
+                    <li>
+                        <div class="careerfy-select-style">
+                           @Html.DropDownList("cat", new SelectList(ViewBag.category, "value", "text"))
+                        </div>
+                    </li>
+                    <li class="careerfy-banner-submit"> <input type="submit" value=""> <i class="careerfy-icon careerfy-search"></i> </li>
+                </ul>
+}
+            <div class="careerfy-banner-btn">
+                <a href="@Url.Action("manageresume","jobseeker")" class="careerfy-bgcolorhover"><i class="careerfy-icon careerfy-up-arrow"></i> Upload Your Resume</a>
+                <a href="@Url.Action("postjob","employer")" class="careerfy-bgcolorhover"><i class="careerfy-icon careerfy-portfolio"></i> Hiring? Post a job for free</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Banner -->
+<div class="careerfy-main-content">
+    <!-- Main Section -->
+    <div class="careerfy-main-section careerfy-counter-full">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Counter -->
+                    <div class="careerfy-counter">
+                        <ul class="row">
+                            <li class="col-md-4">
+                                <span class="word-counter">@Model.activeJobs</span>
+                                <small>Jobs Added</small>
+                            </li>
+                            <li class="col-md-4">
+                                <span class="word-counter">@Model.activeJObseekers</span>
+                                <small>Active Jobseekers</small>
+                            </li>
+                            <li class="col-md-4">
+                                <span class="word-counter">@Model.activeEmployers</span>
+                                <small>Active Employers</small>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Counter -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Main Section -->
+    <!-- Main Section -->
+    <div class="careerfy-main-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 careerfy-typo-wrap">
+                    <!-- Fancy Title -->
+                    <section class="careerfy-fancy-title">
+                        <h2>Popular Job Categories</h2>
+                        <p>A better career is out there. We'll help you find it to use.</p>
+                    </section>
+                    <!-- Categories -->
+                    <div class="categories-list">
+                        <ul class="careerfy-row">
+                            <li class="careerfy-column-3">
+                                <i class="careerfy-icon careerfy-engineer"></i>
+                                <a href="#">construction / facilities</a>
+                                <span>(2 Open Vacancies)</span>
+                            </li>
+                            <li class="careerfy-column-3">
+                                <i class="careerfy-icon careerfy-car"></i>
+                                <a href="#">automotive jobs</a>
+                                <span>(8 Open Vacancies)</span>
+                            </li>
+                            <li class="careerfy-column-3">
+                                <i class="careerfy-icon careerfy-accounting"></i>
+                                <a href="#">Accounting / Finance</a>
+                                <span>(3 Open Vacancies)</span>
+                            </li>
+                            <li class="careerfy-column-3">
+                                <i class="careerfy-icon careerfy-hospital"></i>
+                                <a href="#">Health Care</a>
+                                <span>(5 Open Vacancies)</span>
+                            </li>
+                            <li class="careerfy-column-3">
+                                <i class="careerfy-icon careerfy-antenna"></i>
+                                <a href="#">Telecommunications</a>
+                                <span>(6 Open Vacancies)</span>
+                            </li>
+                            <li class="careerfy-column-3">
+                                <i class="careerfy-icon careerfy-books"></i>
+                                <a href="#">Advertising Agency</a>
+                                <span>(10 Open Vacancies)</span>
+                            </li>
+                            <li class="careerfy-column-3">
+                                <i class="careerfy-icon careerfy-fast-food"></i>
+                                <a href="#">Restaurant / food services</a>
+                                <span>(4 Open Vacancies)</span>
+                            </li>
+                            <li class="careerfy-column-3">
+                                <i class="careerfy-icon careerfy-business"></i>
+                                <a href="#">Sales & Marketing</a>
+                                <span>(1 Open Vacancies)</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Categories -->
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+    <div class="careerfy-main-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 careerfy-typo-wrap">
+                    <!-- Fancy Title -->
+                    <section class="careerfy-fancy-title">
+                        <h2>Trending Jobs</h2>
+                    </section>
+                    <!-- Featured Jobs Listings -->
+                    <div class="careerfy-job-listing careerfy-featured-listing">
+                        <ul class="careerfy-row">@{int i = 0; }
+                        @foreach (var data in Model.jobs)
+                        {
+                                if (i % 2 == 0)
+                                {@Html.Raw(" <ul class='careerfy-row'>");}
+
+
+                                        <li class="careerfy-column-6">
+                                            <div class="careerfy-table-layer">
+                                                <div class="careerfy-table-row">
+                                                    <figure><a href="#"><img src="@Url.Content("Content/images/")@data.image" alt=""></a></figure>
+                                                    <div class="careerfy-featured-listing-text">
+                                                        <h2><a href="@Url.Action("jobdetail","home")/@data.job_id">@data.title</a></h2>
+                                                        <a href="#" class="careerfy-like-list"><i class="careerfy-icon careerfy-heart"></i></a>
+                                                        <time datetime="2008-02-14 20:00">Deadline: @Convert.ToDateTime(data.submission_date).ToString("dddd MMMM d")</time>
+                                                        <div class="careerfy-featured-listing-options">
+                                                            <ul>
+                                                                <li><i class="careerfy-icon careerfy-maps-and-flags"></i> <a href="#">@data.full_address</a></li>
+                                                                <li><i class="careerfy-icon careerfy-filter-tool-black-shape"></i> <a href="#">@data.category</a></li>
+                                                            </ul>
+                                                            @if (data.job_type.Equals("fulltime"))
+                                                            {
+                                                                <text><a href="#" class="careerfy-option-btn careerfy-blue">Full time</a></text>
+
+                                                            }
+                                                            else if (data.job_type.Equals("parttime"))
+                                                            {
+                                                                <text><a href="#" class="careerfy-option-btn careerfy-green">Part time</a> </text>
+                                                            }
+                                                            else if (data.job_type.Equals("temporary"))
+                                                            {
+                                                                <text><a href="#" class="careerfy-option-btn careerfy-red">Temporary</a> </text>
+                                                            }
+                                                            else if (data.job_type.Equals("freelance"))
+                                                            {
+                                                                <text><a href="#" class="careerfy-option-btn">Freelance</a> </text>
+                                                            }
+                                                            else
+                                                            {
+                                                                <text><a href="#" class="careerfy-option-btn careerfy-blue">Contract</a> </text>
+
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        if (i % 2 != 0)
+                                        {@Html.Raw(" </ul>");
+                                        }i++;
+                        }
+</ul>
+                    </div>
+                    <!-- Featured Jobs Listings -->
+                    <div class="careerfy-plain-btn"> <a href="@Url.Action("joblisting","home")">View All Jobs</a> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+    <div class="careerfy-main-section careerfy-parallex-text-full">
+        <div class="container">
+            <div class="row">
+                <aside class="col-md-6 careerfy-typo-wrap">
+                    <div class="careerfy-parallex-text careerfy-logo-text">
+                        <h2>Millions of jobs. <br> Find the one that’s right for you.</h2>
+                        <a href="#" class="careerfy-static-btn careerfy-bgcolor"><span>Search Jobs</span></a>
+                    </div>
+                </aside>
+                <aside class="col-md-6 careerfy-typo-wrap"> <div class="careerfy-logo-thumb"><img src="@Url.Content("Content/extra-images/multiple-logos.jpg")" alt=""></div> </aside>
+            </div>
+        </div>
+    </div>
+    <!-- Main Section -->
+</div>
+

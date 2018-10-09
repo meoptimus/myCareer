@@ -1,0 +1,272 @@
+﻿@model myCareer.Models.job_model
+@{
+    ViewBag.Title = "postJob";
+    Layout = "~/Views/Layouts/Frontend/_Frontend.cshtml";
+    ViewBag.activeStatus = "postJob";
+    List<SelectListItem> job_type = new List<SelectListItem>();
+    List<SelectListItem> province = new List<SelectListItem>();
+    List<SelectListItem> job_level = new List<SelectListItem>();
+    List<SelectListItem> gender = new List<SelectListItem>();
+
+    job_type.Add(new SelectListItem
+    {
+        Text = "Part time",
+        Value = "parttime"
+    });
+    job_type.Add(new SelectListItem
+    {
+        Text = "Full time",
+        Value = "fulltime"
+    });
+    job_type.Add(new SelectListItem
+    {
+        Text = "Contract",
+        Value = "contract"
+    });
+    job_type.Add(new SelectListItem
+    {
+        Text = "Temporary",
+        Value = "temporary"
+    });
+    job_type.Add(new SelectListItem
+    {
+        Text = "Freelance",
+        Value = "freelance"
+    });
+    job_level.Add(new SelectListItem
+    {
+        Text = "Beginnner",
+        Value = "beginner"
+
+    });
+    job_level.Add(new SelectListItem
+    {
+        Text = "Intermediate",
+        Value = "intermediate"
+
+    });
+    job_level.Add(new SelectListItem
+    {
+        Text = "Experienced",
+        Value = "experienced"
+
+    });
+    gender.Add(new SelectListItem
+    {
+        Text = "Male",
+        Value = "male"
+
+    });
+    gender.Add(new SelectListItem
+    {
+        Text = "Female",
+        Value = "female"
+
+    });
+    gender.Add(new SelectListItem
+    {
+        Text = "Any",
+        Value = "any"
+
+    });
+    province.Add(new SelectListItem
+    {
+        Text = "Province 1",
+        Value = "1"
+    }); province.Add(new SelectListItem
+    {
+        Text = "Province 2",
+        Value = "2"
+    }); province.Add(new SelectListItem
+    {
+        Text = "Province 3",
+        Value = "3"
+    }); province.Add(new SelectListItem
+    {
+        Text = "Province 4",
+        Value = "4"
+    }); province.Add(new SelectListItem
+    {
+        Text = "Province 5",
+        Value = "5"
+    });
+}
+<script src="~/Content/summernote/summernote.js"></script>
+<link href="~/Content/summernote/summernote.css" rel="stylesheet" />
+<script src="~/Content/tagsinput/fm.tagator.jquery.js"></script>
+<link href="~/Content/tagsinput/fm.tagator.jquery.css" rel="stylesheet" />
+
+ <!-- Main Content -->
+<div class="careerfy-main-content">
+        <!-- Main Section -->
+    <div class="careerfy-main-section careerfy-dashboard-fulltwo">
+        <div class="container">
+            <div class="row">
+                @Html.Partial("_employerHeader",(String)ViewBag.activeStatus)
+@using (Html.BeginForm("postJob", "Employer", FormMethod.Post, new { id = "job_info", name = "job_info", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="careerfy-column-9">
+                    <div class="careerfy-typo-wrap">
+                        <div class="careerfy-employer-dasboard">
+                            <form>
+                                <div class="careerfy-employer-box-section">
+                                    @if (ViewBag.message != null)
+                                    {
+                                        @Html.Raw(ViewBag.message);
+                                    }
+                                    <div class="careerfy-profile-title">
+                                        <h2>Post a New Job</h2>
+                                    </div>
+                                   
+                                    <ul class="careerfy-row careerfy-employer-profile-form">
+                                        <li class="careerfy-column-6">
+                                            <label>Job Title *</label>
+                                                    @Html.EditorFor(model => model.title)
+                                                    @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })      
+                                         </li>
+                                        <li class="careerfy-column-6">
+                                            <label>Submission Deadline *</label>
+                                            @Html.EditorFor(model => model.submission_date)
+                                            @Html.ValidationMessageFor(model => model.submission_date, "", new { @class = "text-danger" })
+                                            
+                                        </li>
+                                        <li class="careerfy-column-12">
+                                            <label>Description *</label>
+                                            @Html.EditorFor(model => model.description, new {@rows = 10})
+                                            @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger  " }) 
+                                        </li>
+                                        <li class="careerfy-column-6">
+                                            <label>Job Category *</label>
+                                            <div class="careerfy-profile-select">
+                                                @Html.DropDownListFor(model => model.category,new SelectList(ViewBag.category, "Value", "Text"))
+                                            @Html.ValidationMessageFor(model => model.category, "", new { @class = "text-danger" })
+                                            </div>
+                                        </li>
+                                        <li class="careerfy-column-6">
+                                            <label>Job Type *</label>
+                                            <div class="careerfy-profile-select">
+                                                @Html.DropDownListFor(model => model.job_type, job_type, "-- Select Type --")
+                                                @Html.ValidationMessageFor(model => model.job_type, "", new { @class = "text-danger" })
+                                            </div>
+                                        </li>
+                                        <li class="careerfy-column-6">
+                                            <label>Job Level *</label>
+                                            <div class="careerfy-profile-select">
+                                                @Html.DropDownListFor(model => model.job_level, job_level, "-- Select Level --")
+                                                @Html.ValidationMessageFor(model => model.job_level, "", new { @class = "text-danger" })
+                                            </div>
+                                        </li>
+                                        <li class="careerfy-column-6">
+                                            <label>Gender *</label>
+                                            <div class="careerfy-profile-select">
+                                                @Html.DropDownListFor(model => model.gender, gender, "-- Select Gender --")
+                                                @Html.ValidationMessageFor(model => model.gender, "", new { @class = "text-danger" })
+                                            </div>
+                                        </li>
+                                        <li class="careerfy-column-6">
+                                            <label>Salary From</label>
+                                            <div class="careerfy-profile-select">
+                                                @Html.EditorFor(model => model.salaryfrom)
+                                                @Html.ValidationMessageFor(model => model.salaryfrom, "", new { @class = "text-danger" }) 
+                                               </div>
+                                        </li>
+                                        <li class="careerfy-column-6">
+                                            <label>Salary To</label>
+                                            <div class="careerfy-profile-select">
+                                                @Html.EditorFor(model => model.salaryto)
+                                                @Html.ValidationMessageFor(model => model.salaryto, "", new { @class = "text-danger" })
+                                            </div>
+                                        </li>
+                                        <li class="careerfy-column-6">
+                                            <label>Experience (In years)</label>
+                                            @Html.EditorFor(model => model.experience)
+                                            @Html.ValidationMessageFor(model => model.experience, "", new { @class = "text-danger" }) 
+                                             <div class="careerfy-profile-select">
+                                                
+                                            </div>
+                                        </li>
+                                        <li class="careerfy-column-6">
+                                            <label>No of openings</label>
+                                            <div class="careerfy-profile-select">
+                                               @Html.EditorFor(model => model.openings)
+                                            @Html.ValidationMessageFor(model => model.openings, "", new { @class = "text-danger" })
+                                            
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="careerfy-employer-box-section">
+                                    <div class="careerfy-profile-title"><h2>Address / Location</h2></div>
+                                    <ul class="careerfy-row careerfy-employer-profile-form">
+                                        <li class="careerfy-column-6">
+                                            <label>State</label>
+                                            <div class="careerfy-profile-select">
+                                                @Html.DropDownListFor(model => model.state, province, "-- Select State --")
+                                                @Html.ValidationMessageFor(model => model.state, "", new { @class = "text-danger" })
+                                            </div>
+                                        </li>
+                                        <li class="careerfy-column-6">
+                                            <label>District</label>
+                                            <div class="careerfy-profile-select">
+                                                @Html.DropDownListFor(model => model.district, new SelectList(ViewBag.districts, "Value", "Text"))
+                                                @Html.ValidationMessageFor(model => model.district, "", new { @class = "text-danger" })
+                                            </div>
+                                        </li>
+                                        <li class="careerfy-column-6">
+                                            <label>City / Town *</label>
+                                                    @Html.EditorFor(model => model.city)
+                                                    @Html.ValidationMessageFor(model => model.city, "", new { @class = "text-danger" })      
+                                         </li>
+                                        <li class="careerfy-column-6">
+                                            <label>Postal code</label>
+                                            @Html.EditorFor(model => model.postalcode)
+                                            @Html.ValidationMessageFor(model => model.postalcode, "", new { @class = "text-danger" })    
+                                        </li>
+                                        <li class="careerfy-column-6">
+                                            <label>Full Address *</label>
+                                            @Html.EditorFor(model => model.full_address)
+                                            @Html.ValidationMessageFor(model => model.full_address, "", new { @class = "text-danger" })
+                                        </li>
+                                        <li class="careerfy-column-6">
+                                            <label>Skills *</label>
+                                            @Html.EditorFor(model => model.skills)
+                                            @Html.ValidationMessageFor(model => model.skills, "", new { @class = "text-danger" })
+                                        </li>
+                                    </ul>
+                                </div>
+                                <input type="submit" class="careerfy-employer-profile-submit" value="post Job">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+}
+
+            </div>
+        </div>
+    </div>
+    <!-- Main Section -->
+
+</div>
+<!-- Main Content -->
+
+<script type="text/javascript">
+    var values = [];
+    $(document).ready(function () {
+        $('#description').summernote({
+            tabsize: 2,
+            height: 300
+        });
+        $.post("@Url.Action("skills", "jobseeker")", "")
+           .done(function (response, status, jqxhr) {
+               for (i = 0; i < response.length; i++) {
+                   values.push(response[i]);
+               }
+           })
+        var $input_tagator1 = $('#skills');
+        $input_tagator1.tagator({
+            autocomplete: values,
+        });
+    });
+</script>

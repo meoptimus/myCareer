@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "contactus";
+    Layout = "~/Views/Layouts/Frontend/_Frontend.cshtml";
+    ViewBag.activeNav = "contact";
+}
+<div class="careerfy-main-section ">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="careerfy-contact-info-sec">
+                    <h2>Contact Information</h2>
+                    <p>MyCareer is the fastest growing job portal in Nepal. Find your career oppurtunities here. Search among thousands of companies, industries and location of ur choice.</p>
+                    <ul class="careerfy-contact-info-list">
+                        <li><i class="careerfy-icon careerfy-placeholder"></i> Drivertol, Rupandehi, Nepal</li>
+                        <li><i class="careerfy-icon careerfy-mail"></i> <a href="#">Email: contact@mycareer.com</a></li>
+                        <li><i class="careerfy-icon careerfy-technology"></i> Call: 9857015156</li>
+                        <li><i class="careerfy-icon careerfy-fax"></i> Fax: (977)447411217</li>
+                    </ul>
+                    <div class="careerfy-contact-media">
+                        <a href="http://www.facebook.com" class="careerfy-icon careerfy-facebook-logo"></a>
+                        <a href="http://www.twitter.com" class="careerfy-icon careerfy-twitter-logo"></a>
+                        <a href="http://www.linked.com" class="careerfy-icon careerfy-linkedin-button"></a>
+                        <a href="#" class="careerfy-icon careerfy-dribbble-logo"></a>
+                    </div>
+                </div>
+                <div class="careerfy-contact-form">
+                    <h2>We want to hear from you!</h2>
+                    <form id="contact">
+                        <ul>
+                            <li>
+                                <input placeholder="Enter Your Name" type="text" required>
+                                <i class="careerfy-icon careerfy-user"></i>
+                            </li>
+                            <li>
+                                <input placeholder="Subject"type="text">
+                                <i class="careerfy-icon careerfy-user"></i>
+                            </li>
+                            <li>
+                                <input placeholder="Enter Your Email Address"  type="text" required>
+                                <i class="careerfy-icon careerfy-mail"></i>
+                            </li>
+                            <li>
+                                <input placeholder="Enter Your Phone Number" type="text" required>
+                                <i class="careerfy-icon careerfy-technology"></i>
+                            </li>
+                            <li class="careerfy-contact-form-full" required>
+                                <textarea rows="4"></textarea>
+                            </li>
+                            <li><input type="submit" value="Submit" onclick="$.alert('Sucessfully sent.'); $('#contact')[0].reset(); return false;"></li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+

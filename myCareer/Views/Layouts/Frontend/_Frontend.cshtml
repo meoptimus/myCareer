@@ -1,0 +1,395 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title</title>
+
+    <!-- Css -->
+    <script src="@Url.Content("~/Content/script/jquery.js")"></script>
+    <link href="~/Content/css/bootstrap.css" rel="stylesheet">
+    <link href="~/Content/css/font-awesome.css" rel="stylesheet">
+    <link href="~/Content/css/flaticon.css" rel="stylesheet">
+    <link href="~/Content/css/slick-slider.css" rel="stylesheet">
+    <link href="~/Content/plugin-css/fancybox.css" rel="stylesheet">
+    <link href="~/Content/plugin-css/plugin.css" rel="stylesheet">
+    <link href="~/Content/css/color.css" rel="stylesheet">
+    <link href="~/Content/style.css" rel="stylesheet">
+    <link href="~/Content/jquery-confirm/css/jquery-confirm.css" rel="stylesheet" />
+    @RenderSection("head", required: false)
+    <link href="~/Content/css/responsive.css" rel="stylesheet">
+    <link href="~/Content/fontawesome/css/fontawesome.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&amp;subset=cyrillic-ext,vietnamese" rel="stylesheet">
+    <link href="~/Content/notification/css/freenbar.css" rel="stylesheet" />
+    <script src="~/Content/notification/js/freenbar.min.js"></script>
+</head>
+<body> 
+    @if (Session["emailverified"] != null && Session["emailverified"].ToString() == "FALSE")
+    {
+        if (Session["notification"] == null)
+        {
+            <div id="barwrap">
+                <div class="bar">
+                    <span id="head-image"><img src="@Url.Content("~/Content/notification/img/authkey.png")" alt=""></span>
+                    <span id="text">Your email is not verified. please verify your account to prevent account from blocking. <button type="button" onclick="verify()" class="btn btn-primary pull-right btn-sm">Verify Now</button></span>
+                    <span id="otherimg"></span>
+                    <span id="ok"><a href="#" onclick="cancel();">✔</a></span>
+                </div>
+            </div>
+        }
+
+    }
+
+    <!-- Wrapper -->
+    <div class="careerfy-wrapper">
+        <!-- Header -->
+        <header id="careerfy-header" class="careerfy-header-one">
+            <div class="container">
+                <div class="row">
+                    <aside class="col-md-2"> <a href="@Url.Action("index","home")" class="careerfy-logo"><img src="@Url.Content("~/Content/images/logo.png")" alt=""></a> </aside>
+                    <aside class="col-md-6">
+                        <nav class="careerfy-navigation">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#careerfy-navbar-collapse-1" aria-expanded="false">
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </div>
+                            <div class="collapse navbar-collapse" id="careerfy-navbar-collapse-1">
+                                <ul class="navbar-nav">
+                                    <li @if (ViewBag.activeNav == "home") { <text>class="active"</text>}>
+                                        <a href="@Url.Action("index", "Home")">Home</a>
+                                    </li>
+                                    <li @if (ViewBag.activeNav == "employerlist") { <text> class="active" </text> }>
+                                        <a href="@Url.Action("employerlist", "Home")">Employers</a>
+                                    </li>
+                                    <li @if (ViewBag.activeNav == "jobs") { <text> class="active" </text>  }>
+                                        <a href="@Url.Action("joblisting", "Home")">Top Jobs</a>
+                                    <li @if (ViewBag.activeNav == "contact") { <text> class="active" </text> }>
+                                    <a href="@Url.Action("contactus","home")">Contact us</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </aside>
+                    <aside class="col-md-4">
+                        <div class="careerfy-right">
+                            <ul class="careerfy-user-section" id="loginSection">
+                                @{ if (Session["username"] != null)
+                                    {
+                                        <li>
+                                            <a class="dropdown-toggle careerfy-color" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@Session["username"].ToString().ToUpper()</a>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <a class="dropdown-item" href="@Url.Action("logout", "Login")"><span class="careerfy-color text-center" style="margin-left:15px" >Logout</span></a>
+                                            </div>
+                                        </li>
+                                        if (Session["emp_id"] != null)
+                                        {
+                                            <li><a href="@Url.Action("managejobs", "employer")" class="careerfy-color text-center"><span>Dashboard</span></a></li>
+                                        }
+                                        else
+                                        {
+                                            <li><a href="@Url.Action("savedjobs", "jobseeker")" class="careerfy-color text-center"><span>Dashboard</span></a></li>
+                                        }
+
+                                    }
+                                    else
+                                    {
+
+                                        <li><a class="careerfy-color  careerfy-open-signup-tab" href="#" data-toggle="modal" data-target="#loginModel">Login</a></li>
+                                        <li>
+                                            <a class="careerfy-color careerfy-open-signin-tab" href="#">Register</a>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <a class="dropdown-item" href="@Url.Action("Register","Employer")"><span class="col-sm-12" style="height:40px;background-color:#13B5EA;border-radius:20px;color:white;padding:5px 0 0 50px;">Employer</span></a>
+                                                <a class="dropdown-item" href="@Url.Action("Register","Jobseeker")"><span class="col-sm-12" style="height:40px;background-color:#2E4052;border-radius:20px;color:white;padding:5px 0 0 45px; margin-top:5px;">Job Seeker</span></a>
+                                            </div>
+                                        </li>
+                                    }
+                                }
+
+                            </ul>
+                            @if (Session["js_id"] == null)
+                            {
+                                if (Session["emp_id"] != null)
+                                {
+                                    <a href="@Url.Action("postjob", "employer")" class="careerfy-simple-btn careerfy-bgcolor" ><span> <i class="careerfy-icon careerfy-up-arrow"></i> Post Job</span></a>
+                                }
+                                else
+                                {
+                                    <a href="@Url.Action("register", "employer")" class="careerfy-simple-btn careerfy-bgcolor"><span> <i class="careerfy-icon careerfy-up-arrow"></i> Post Job</span></a>
+
+                                }
+                            }
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </header>
+        <!-- Header -->
+
+        <!-- Main Content -->
+        @RenderBody()
+
+        <!-- Footer -->
+        <footer id="careerfy-footer" class="careerfy-footer-one">
+            <div class="container">
+                <!-- Footer Widget -->
+                <div class="careerfy-footer-widget">
+                    <div class="row">
+                        <aside class="widget col-md-4 widget_contact_info">
+                            <div class="widget_contact_wrap">
+                                <a class="careerfy-footer-logo" href="@Url.Action("index","home")"><img src="@Url.Content("~/Content/images/logo.png")" alt=""></a>
+                                <p>
+                                    MyCareer is the fastest growing job portal in Nepal. Find your career oppurtunities here. Search among thousands of companies, industries and location of ur choice.
+                                </p>
+                            </div>
+                        </aside>
+                        <aside class="widget col-md-3 widget_nav_manu">
+                            <div class="footer-widget-title"><h2>For Employers</h2></div>
+                            <ul>
+                                <li><a href="@Url.Action("register","employer")">Create Account</a></li>
+                                <li><a href="@Url.Action("postjob","employer")">Post a Job</a></li>
+                                <li><a href="@Url.Action("managejobs","employer")">Dashboard</a></li>
+                                <li><a href="@Url.Action("contactus","home")">Contact</a></li>
+                            </ul>
+                        </aside>
+                        <aside class="widget col-md-3 widget_nav_manu">
+                            <div class="footer-widget-title"><h2>For Candidates</h2></div>
+                            <ul>
+                                <li><a href="@Url.Action("employerlist","home")">Browse Employers</a></li>
+                                <li><a href="@Url.Action("manageresume","jobseeker")">Submit Resume</a></li>
+                                <li><a href="@Url.Action("savedjobs","jobseeker")">Candidate Dashboard</a></li>
+                                <li><a href="@Url.Action("joblisting","home")">Search Jobs</a></li>
+                            </ul>
+                        </aside>
+                        <aside class="widget col-md-2 widget_nav_manu">
+                            <div class="footer-widget-title"><h2>Contact Us</h2></div>
+                            <ul>
+                                <li>Drivertole-5, Rupandehi, Nepal</li>
+                                <li>Hotline-071586721</li>
+                                <li>For HR services:9807587026</li>
+                            </ul>
+                        </aside>
+                    </div>
+                </div>
+                <!-- Footer Widget -->
+                <!-- CopyRight -->
+                <div class="careerfy-copyright">
+                    <p>Copyrights © 2018 All Rights Reserved by <a href="#" class="careerfy-color">MyCareer</a></p>
+                    <ul class="careerfy-social-network">
+                        <li><a href="#" class="careerfy-bgcolorhover fa fa-facebook"></a></li>
+                        <li><a href="#" class="careerfy-bgcolorhover fa fa-twitter"></a></li>
+                        <li><a href="#" class="careerfy-bgcolorhover fa fa-dribbble"></a></li>
+                        <li><a href="#" class="careerfy-bgcolorhover fa fa-linkedin"></a></li>
+                        <li><a href="#" class="careerfy-bgcolorhover fa fa-instagram"></a></li>
+                    </ul>
+                </div>
+                <!-- CopyRight -->
+            </div>
+        </footer>
+        <!-- Footer -->
+    </div>
+
+
+    <div class="careerfy-modal fade careerfy-typo-wrap" id="JobSearchModalSignup">
+        <div class="modal-inner-area">&nbsp;</div>
+        <div class="modal-content-area">
+            <div class="modal-box-area">
+
+                <div class="careerfy-modal-title-box">
+                    <h2>Login to your account</h2>
+                    <span class="modal-close"><i class="fa fa-times"></i></span>
+                </div>
+                <form id="loginForm">
+                    <div class="careerfy-box-title">
+                        <span>Login as any type</span>
+                    </div>
+                    <div class="careerfy-user-options">
+                        <ul>
+                            <li class="active">
+                                <a href="#">
+                                    <i class="careerfy-icon careerfy-user"></i>
+                                    <span>Candidate</span>
+                                    <small>I want to discover awesome companies.</small>
+                                </a>
+                            </li>
+                            <li class="active">
+                                <a href="#" >
+                                    <i class="careerfy-icon careerfy-building"></i>
+                                    <span>Employer</span>
+                                    <small>I want to attract the best talent.</small>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="careerfy-user-form">
+                        <ul>
+                            <li>
+                                <label>Username or email:</label>
+                                <input type="text" name="username" class="form-control" required />
+                                <i class="careerfy-icon careerfy-mail"></i>
+                            </li>
+                            <li>
+                                <label>Password:</label>
+                                <input type="password" name="password" class="form-control" required />
+                                <i class="careerfy-icon careerfy-multimedia"></i>
+                            </li>
+                            <li>
+                                <input type="submit" value="Sign In" id="inputbutton" onclick=" login(); this.value = 'signing in.....'; return false;">
+                                <center id="loading"><img src="~/Content/27.gif" height="50" width="50" style="display:none" /></center>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                        <div class="careerfy-user-form-info">
+                            <p>Forgot Password? | <a class="careerfy-color careerfy-open-signin-tab" href="#">Register</a></p>
+                            <div class="careerfy-checkbox">
+                                <input type="checkbox" id="r10" name="rr" />
+                                <label for="r10"><span></span> Remember Password</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <!-- Modal Signup Box -->
+    <div class="careerfy-modal fade careerfy-typo-wrap" id="JobSearchModalLogin">
+        <div class="modal-inner-area">&nbsp;</div>
+        <div class="modal-content-area">
+            <div class="modal-box-area">
+
+                <div class="careerfy-modal-title-box">
+                    <h2>Signup to your account</h2>
+                    <span class="modal-close"><i class="fa fa-times"></i></span>
+                </div>
+                <form >
+                    <div class="careerfy-box-title">
+                        <span>Choose your Account Type</span>
+                    </div>
+                    <div class="careerfy-user-options">
+                        <ul>
+                            <li class="active">
+                                <a href="@Url.Action("register","jobseeker")">
+                                    <i class="careerfy-icon careerfy-user"></i>
+                                    <span>Candidate</span>
+                                    <small>I want to discover awesome companies.</small>
+                                </a>
+                            </li>
+                            <li class="active">
+                                <a href="@Url.Action("register","employer")">
+                                    <i class="careerfy-icon careerfy-building"></i>
+                                    <span>Employer</span>
+                                    <small>I want to attract the best talent.</small>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+<script>
+    function login() {
+        var formData = $('#loginForm').serialize();
+        jQuery.ajax({
+            type: 'POST',
+            url: '@Url.Action("loginVerify", "Login")',
+            data: formData,
+            dataType: "json",
+            beforeSend:function()
+            {
+                $('#loading').css({ 'display': "block" });
+            },
+            success: function (result) {
+                $('#loading').css({ 'display': "none" });
+                $('#inputbutton').val("SIGN IN");
+                if (result.success === true) {
+                    html = '<li><a class="careerfy-color careerfy-open-signin-tab"> Welcome ' + result.username + '</a></li>';
+                    $('#loginSection').html(html);
+                    if (result.role == "employer") {
+                        window.location.replace("@Url.Action("employerprofile","employer")");
+                    }
+                    else {
+                        $.alert("Login Success, Redirecting.......");
+                        location.reload();
+                           }
+
+                }
+                else {
+                    $.alert("Invalid credentials");
+                }
+            }
+        });
+    }
+    function cancel() {
+        $.post("@Url.Action("notification", "jobseeker")", "").done(function (response, status, jqxhr) { });
+    } function verify()
+    {
+        $.post("@Url.Action("verifyEmail", "jobseeker")", "").done(function (response, status, jqxhr) {
+            if (response == true)
+                $.alert("Success!!  Please check your email before it expires.");
+            else
+                $.alert("Sorry something went wrong");
+
+        });
+    }
+    function employerProfile()
+    {
+        var data = new FormData();
+        data.append('photo', $('#empphoto').prop('files')[0]);
+        $.ajax({
+            type: 'POST',
+            processData: false, // important
+            contentType: false, // important
+            data: data,
+            url: "@Url.Action("changeProfile", "employer")",
+            dataType : 'json',
+            success: function(response){
+                if (response == true){
+                    $.alert("Success!!");
+                    window.location.reload();
+                }
+                else
+                    $.alert("Sorry something went wrong");
+                }
+        });
+    }
+    function jobseekerProfile()
+    {
+        var data = new FormData();
+        data.append('photo', $('#jsphoto').prop('files')[0]);
+        $.ajax({
+            type: 'POST',               
+            processData: false, // important
+            contentType: false, // important
+            data: data,
+            url: "@Url.Action("changeProfile", "jobseeker")",
+            dataType : 'json',  
+        success: function(response){
+            if (response == true){
+                $.alert("Success!!");
+                window.location.reload();
+            }
+            else
+                $.alert("Sorry something went wrong");
+        }
+    }); 
+    }
+</script>
+
+    <script src="@Url.Content("~/Content/script/bootstrap.js")"></script>
+    @*<script src="@Url.Content("~/Content/script/slick-slider.js")"></script>*@
+    <script src="@Url.Content("~/Content/plugin-script/counter.js")"></script>
+    @*<script src="@Url.Content("~/Content/plugin-script/fancybox.pack.js")"></script>*@
+   @* <script src="@Url.Content("~/content/script/functions.js")"></script>*@
+    <script src="@Url.Content("~/Content/jquery-confirm/jquery-confirm.js")"></script>
+    <script src="~/Content/plugin-script/functions.js"></script>
+</body>
+</html>

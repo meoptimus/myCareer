@@ -1,0 +1,289 @@
+﻿@using PagedList.Mvc
+@model  PagedList.IPagedList<myCareer.Models.job_model>
+@{
+    ViewBag.Title = "jobListing";
+    Layout = "~/Views/Layouts/Frontend/_Frontend.cshtml";
+    ViewBag.activeNav = "jobs";
+}
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<div class="careerfy-subheader">
+    <span class="careerfy-banner-transparent"></span>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="careerfy-page-title">
+                    <h1>Jobs For Seekers</h1>
+                    <p>Yes! You make or may not find the right job for you, but that’s ok.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="careerfy-main-content">
+
+    <!-- Main Section -->
+    <div class="careerfy-main-section careerfy-subheader-form-full">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-12 careerfy-typo-wrap">
+                    <!-- Sub Header Form -->
+                    <div class="careerfy-subheader-form">
+@using (Html.BeginForm("joblisting", "Home", FormMethod.Get, new { id = "job_post", name = "job_post", enctype = "multipart/form-data", @class = "careerfy-banner-search" }))
+{                            <ul>
+                                <li>
+                                    <input placeholder="Job Title, Keywords, or Company"  type="text" name="keyword" id="keyword">
+                                </li>
+                                <li>
+                                    <input placeholder="City, State or ZIP"  type="text" name="city" id="city">
+                                    <i class="careerfy-icon careerfy-location"></i>
+                                </li>
+                                <li>
+                                    <div class="careerfy-select-style">
+                                        <select name="level" id="level">
+                                            <option value="">Select</option>
+                                            <option value="intermediate">Intermediate</option>
+                                            <option value="beginner">Beginner</option>
+                                            <option value="experienced">Experienced</option>
+                                        </select>
+                                    </div>
+                                </li>
+                       
+                                <li class="careerfy-banner-submit"> <input type="submit" id="submitBtn" value="" onclick="return search()"> <i class="careerfy-icon careerfy-search"></i> </li>
+              
+                            </ul>                        <input type="hidden" id="time" name="time" />                        <input type="hidden" id="cat" name="cat" />                        <input type="hidden" id="type" name="type" />
+}                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="careerfy-main-section">
+        <div class="container">
+            <div class="row">
+                <aside class="careerfy-column-3 careerfy-typo-wrap">
+                    <div class="careerfy-typo-wrap">
+                            <form class="careerfy-search-filter" id="job_info">
+                            <div class="careerfy-search-filter-wrap careerfy-without-toggle">
+                                <h2><a href="#">Vacancy posted</a></h2>
+                               
+                                <ul class="careerfy-checkbox">
+                                    <li>
+                                        <input type="radio" id="r5" name="time" onchange="setList()" value="1" />
+                                        <label for="r5"><span></span>Last Hour</label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" id="r6"name="time" onchange="setList()" value="24"/>
+                                        <label for="r6"><span></span>Last 24 hours</label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" id="r7" name="time" onchange="setList()" value="168"/>
+                                        <label for="r7"><span></span>Last 7 days</label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" id="r8" name="time" onchange="setList()" value="336" />
+                                        <label for="r8"><span></span>Last 14 days</label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" id="r9" name="time" onchange="setList()" value="720" />
+                                        <label for="r9"><span></span>Last 30 days</label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" id="r19" name="time" onchange="setList()" value="all" />
+                                        <label for="r19"><span></span>All</label>
+                                    </li>
+                                </ul>
+                               
+                            </div>
+                            <div class="careerfy-search-filter-wrap careerfy-search-filter-toggle">
+                                <h2><a href="#" class="careerfy-click-btn">Vacancy Type</a></h2>
+                                <div class="careerfy-checkbox-toggle">
+                                    <ul class="careerfy-checkbox">
+                                        <li>
+                                            <input type="checkbox" id="freelance" name="freelance" onchange="setList()"  />
+                                            <label for="freelance"><span></span>Freelance</label>
+                                            <small>13</small>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="fulltime" name="fulltime" onchange="setList()" />
+                                            <label for="fulltime"><span></span>Full Time</label>
+                                            <small>4</small>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="contract" name="contract" onchange="setList()"/>
+                                            <label for="contract"><span></span>Contract</label>
+                                            <small>12</small>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="parttime" name="parttime" onchange="setList()"/>
+                                            <label for="parttime"><span></span>Part Time</label>
+                                            <small>22</small>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="temporary" name="temporary" onchange="setList()" />
+                                            <label for="temporary"><span></span>Temporary</label>
+                                            <small>5</small>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="careerfy-search-filter-wrap careerfy-search-filter-toggle">
+                                <h2><a href="#" class="careerfy-click-btn">Categories</a></h2>
+                                <div class="careerfy-checkbox-toggle">
+                                    <ul class="careerfy-checkbox" id="categoryList"> 
+                                    </ul>
+                                    <a href="javascript:void(0);" class="careerfy-seemore" onclick="setAllCategories(); this.style.display = 'none';">+see more</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </aside>
+                <div class="careerfy-column-9 careerfy-typo-wrap">
+                    <div class="careerfy-typo-wrap">
+                        <center id="loading"><img src="~/Content/27.gif" height="50" width="50"/></center>
+                        <div id="grid" style="margin-top:-30px">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main Content -->
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#keyword').val('@Request.QueryString["keyword"]');
+        $('#city').val('@Request.QueryString["city"]');
+        @{
+            if (!string.IsNullOrEmpty(Request.QueryString["cat"]))
+            {
+                       @Html.Raw(" $('"+@Request.QueryString["cat"]+"').prop('checked', true);");
+
+            }
+        }
+        $('#loading').hide();
+        $.ajax({
+            url: "@Url.Action("jsonCategory","home")",
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            datatype: JSON,
+            success: function (result) {
+                var html = "";
+                $(result).each(function () {
+                    html += "<li>";
+                    html += '<input type="checkbox" id="' + this.jobcat_id + '" name="' + this.jobcat_id + '" onchange="setList()" />';
+                    html += '<label for="' + this.jobcat_id + '"><span></span>' + this.category_name + '</label>';
+                    html += '<small>20</small>'
+                    html += '</li>';
+                });
+                $('#categoryList').html(html);
+            },
+            error: function (data) { }
+        });
+        $.ajax({
+            url: "@Url.Action("joblistingajax","home")?keyword=@Request.QueryString["keyword"]&city=@Request.QueryString["city"]&category=@Request.QueryString["cat"]",
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            datatype: JSON,
+            beforeSend: function (xhr) {
+                $('#loading').show();
+            },
+            success: function (result) {
+                $('#loading').hide();
+                $('#grid').html(result);
+            },
+            error: function (data) { }
+        });
+    });
+    function setAllCategories() {
+        $.ajax({
+            url: "@Url.Action("jsonCategoryAll","home")",
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            datatype: JSON,
+            success: function (result) {
+                var html = "";
+                $(result).each(function () {
+                    html += "<li>";
+                    html += '<input type="checkbox" id="' + this.jobcat_id + '" name="' + this.jobcat_id + '" onchange="setList()"/>';
+                    html += '<label for="' + this.jobcat_id + '"><span></span>' + this.category_name + '</label>';
+                    html += '<small>20</small>'
+                    html += '</li>';
+                });
+                $('#categoryList').html(html);
+            },
+            error: function (data) { }
+        });
+    }
+    function setList() {
+        var formData = $('#job_info').serialize();
+        var res = formData.split("&");
+        time = "";
+        type = "";
+        cat = "";
+        if (res.length > 0) {
+            for (var i = 0; i < res.length; i++) {
+                var temp = res[i].split("=")
+                if (temp[0] == "time") {
+                    time += temp[1];
+                }
+                else if (temp[0] == "parttime" || temp[0] == "temporary" || temp[0] == "contract" || temp[0] == "freelance" || temp[0] == "fulltime") {
+                    if (type == "")
+                        type += temp[0];
+                    else
+                        type += "," + temp[0];
+                }
+                else {
+                    if (cat == "")
+                        cat += temp[0];
+                    else
+                        cat += "," + temp[0];
+                }
+            }
+        }
+        var query = "";
+        if (time != "")
+            query += "time=" + time;
+        if (type != "")
+            query += "&type=" + type;
+        if (cat != "")
+            query += "&cat=" + cat;
+        console.log(query);
+        $('#type').val(type);
+        $('#cat').val(cat);
+        $('#time').val(time);
+        $("#submitBtn").trigger("click");
+    }
+
+    function search() {
+        var org = $('#job_post').serialize();
+        $.ajax({
+            url: "@Url.Action("joblistingajax","home")",
+            type: "GET",
+            data: org,
+            contentType: "application/json; charset=utf-8",
+            datatype: JSON,
+            beforeSend: function (xhr) {
+                $('#loading').show();
+            },
+            success: function (result) {
+                $('#loading').hide();
+                $('#grid').html(result);
+            },
+
+        });
+        return false;
+    }
+
+    function toTitleCase(str) {
+        return str.split(/\s+/).map(s => s.charAt(0).toUpperCase() + s.substring(1).toLowerCase()).join(" ");
+    }
+    jQuery(".careerfy-click-btn").on('click', function (e) {
+        jQuery(this).parents('.careerfy-search-filter-toggle').find('.careerfy-checkbox-toggle').slideToggle("slow", function () { });
+        jQuery(this).parents('.careerfy-search-filter-toggle').toggleClass("careerfy-remove-padding", function () { });
+        return false;
+    });
+
+
+    </script>

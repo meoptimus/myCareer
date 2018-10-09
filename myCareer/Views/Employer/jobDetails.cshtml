@@ -1,0 +1,125 @@
+﻿@model myCareer.Models.jobdetails
+@{
+    ViewBag.Title = "Job Details";
+    Layout = "~/Views/Layouts/Frontend/_Frontend.cshtml";
+    ViewBag.activeStatus = "manageJobs";
+}
+
+<div class="careerfy-main-content">
+    <div class="careerfy-main-section careerfy-dashboard-fulltwo">
+        <div class="container">
+            <div class="row">
+                @Html.Partial("_employerHeader", (String)ViewBag.activeStatus)
+                <div class="careerfy-column-9">
+                    <div class="careerfy-typo-wrap">
+                        <div class="careerfy-employer-dasboard">
+                            
+                                <!-- Profile Title -->
+                                <div class="careerfy-profile-title">
+                                    <h2>Job Details</h2>
+                                    <a href="~/employer/editDetails/?id=@Model.job_id"  class="careerfy-employer-profile-submit pull-right">Edit details</a>
+                                </div>
+                                <!-- Manage Jobs -->
+                                <div class="careerfy-managejobs-list-wrap">
+                                    <div class="careerfy-column-12">
+                                        <div class="careerfy-jobdetail-services">
+                                            <ul class="careerfy-row">
+                                                <li class="careerfy-column-4">
+                                                    <i class="careerfy-icon careerfy-salary"></i>
+                                                    <div class="careerfy-services-text">Offerd Salary <small> @if (Model.salaryfrom == Model.salaryto)
+                                                    {
+                                                      @Model.salaryfrom
+                                                    }
+                                                    else
+                                                    {
+                                                        @Model.salaryfrom <text> - </text> @Model.salaryto
+                                                    }
+                                                       
+                                                        </small></div>
+                                                </li>
+                                                <li class="careerfy-column-4">
+                                                    <i class="careerfy-icon careerfy-social-media"></i>
+                                                    <div class="careerfy-services-text">Career Level <small>@Model.job_level</small></div>
+                                                </li>
+                                                <li class="careerfy-column-4">
+                                                    <i class="careerfy-icon careerfy-briefcase"></i>
+                                                    <div class="careerfy-services-text">Experience <small>@Model.experience Years </small></div>
+                                                </li>
+                                                <li class="careerfy-column-4">
+                                                    <i class="careerfy-icon careerfy-user"></i>
+                                                    <div class="careerfy-services-text">Gender <small>@Model.gender</small></div>
+                                                </li>
+                                                <li class="careerfy-column-4">
+                                                    <i class="careerfy-icon careerfy-network"></i>
+                                                    <div class="careerfy-services-text">Industry <small>@Model.category_name</small></div>
+                                                </li>
+                                                <li class="careerfy-column-4">
+                                                    <i class="careerfy-icon careerfy-mortarboard"></i>
+                                                    <div class="careerfy-services-text">Job Type <small>@Model.job_type</small></div>
+                                                </li>
+                                            </ul>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                
+                               <div class="row">
+                                   <table class="table table-condensed">
+                                       <tr>
+                                           <td>Title</td>
+                                           <td>@Model.title</td>
+                                       </tr>
+                                       <tr>
+                                           <td>Deadline</td>
+                                           <td>@Model.submission_date</td>
+                                       </tr>
+                                       <tr>
+                                        <td>Job Level</td>
+                                        <td>@Model.job_level</td>
+                                    </tr>
+                                       <tr>
+                                           <td>State</td>
+                                           <td>Province @Model.state</td>
+                                       </tr>
+                                       <tr>
+                                            <td>District</td>
+                                            <td>@Model.district</td>
+                                        </tr>
+                                       <tr>
+                                            <td>City</td>
+                                            <td>@Model.city</td>
+                                        </tr>
+                                       <tr>
+                                        <td>Postal Code</td>
+                                        <td>@Model.postalcode</td>
+                                    </tr>
+                                       <tr>
+                                            <td>Full Address</td>
+                                            <td>@Model.full_address</td>
+                                        </tr>
+                                       <tr>
+                                        <td>Created at</td>
+                                        <td>@Model.created_at</td>
+                                    </tr>
+                                       <tr>
+                                            <td>No of Openings</td>
+                                            <td>@Model.openings</td>
+                                        </tr>
+                                       <tr>
+                                            <td>Description</td>
+                                            <td>@Html.Raw( Model.description)</td>
+                                        </tr>
+                                   </table>
+                                   </div>
+                
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+

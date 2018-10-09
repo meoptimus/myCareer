@@ -1,0 +1,97 @@
+﻿@using PagedList.Mvc
+@model  PagedList.IPagedList<myCareer.Models.job_model>
+<div class="careerfy-job careerfy-joblisting-classic">
+    <ul class="careerfy-row" id="">
+        @if (Model.Count == 0)
+        {
+            <text><h2 style="color:red; text-align:center">No Jobs Found!!</h2></text>
+        }
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            <li class="careerfy-column-12">
+                <div class="careerfy-joblisting-classic-wrap">
+                    <figure><a href="#"><img src="@Url.Content("~/Content/images/")@Model[i].image" alt=""></a></figure>
+                    <div class="careerfy-joblisting-text">
+                        <div class="careerfy-list-option">
+                            <h2><a href="~/home/jobdetail/@Model[i].job_id">@Model[i].title.ToUpper()</a></h2>
+                            <ul>
+                                <li><a href="@Url.Action("employer_profile","home")/?emp_id=@Model[i].emp_id"> @Model[i].employer.ToUpper()</a></li>
+                                <li>
+                                    <i class="careerfy-icon careerfy-maps-and-flags"></i>@if (!string.IsNullOrEmpty(Model[i].full_address))
+                                    {@Model[i].full_address;
+                                    }
+                                    else
+                                    {
+                                        if (!string.IsNullOrEmpty(Model[i].district))
+                                        {
+                                            @Model[i].district;
+                                        }
+                                    }
+
+                                </li>
+                                <li><i class="careerfy-icon careerfy-filter-tool-black-shape"></i> @Model[i].category</li>
+                                <li><i class="careerfy-icon fa fa-clock"></i>@Convert.ToDateTime(Model[i].submission_date).ToString("dddd MMMM d")</li>
+                            </ul>
+                        </div>
+                        <div class="careerfy-job-userlist">
+                            @if (Model[i].job_type.Equals("fulltime"))
+                            {
+                                <text><a href="#" class="careerfy-option-btn careerfy-blue">Full time</a></text>
+
+                            }
+                            else if (Model[i].job_type.Equals("parttime"))
+                            {
+                                <text><a href="#" class="careerfy-option-btn careerfy-green">Part time</a> </text>
+                            }
+                            else if (Model[i].job_type.Equals("temporary"))
+                            {
+                                <text><a href="#" class="careerfy-option-btn careerfy-red">Temporary</a> </text>
+                            }
+                            else if (Model[i].job_type.Equals("freelance"))
+                            {
+                                <text><a href="#" class="careerfy-option-btn">Freelance</a> </text>
+                            }
+                            else
+                            {
+                                <text><a href="#" class="careerfy-option-btn careerfy-blue">Contract</a> </text>
+
+                            }
+
+                            <a href="#" class="careerfy-job-like"><i class="fa fa-heart"></i></a>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+</div>
+<div class="careerfy-pagination-blog">
+    @Html.PagedListPager(Model, page => Url.Action("jobListingajax", "home",
+                                      new
+                                      {
+                                          page,
+                                          keyword = Request.QueryString["keyword"],
+                                          city = Request.QueryString["city"],
+                                          level = Request.QueryString["level"],
+                                          time = Request.QueryString["time"],
+                                          cat = Request.QueryString["cat"],
+                                          type = Request.QueryString["type"]
+                                      }),
+                                   PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions
+                                   {
+                                       Display = PagedListDisplayMode.IfNeeded,
+                                       MaximumPageNumbersToDisplay = 5
+                                   },
+                                   new AjaxOptions
+                                   {
+                                       InsertionMode = InsertionMode.Replace,
+                                       HttpMethod = "Get",
+                                       UpdateTargetId = "grid"
+                                   }))
+
+
+        @*@Html.PagedListPager(Model, page => Url.Action("jobListing", new { page, keyword = Request.QueryString["keyword"], city = Request.QueryString["city"], level = Request.QueryString["level"], time = Request.QueryString["time"], cat = Request.QueryString["cat"], type = Request.QueryString["type"] }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded })*@
+    </div>
+
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>

@@ -1,0 +1,12 @@
+﻿@if (ViewBag.sessionStatus == "true")
+{
+    <li><a class="careerfy-color careerfy-open-signin-tab"> Welcome @Session["username"].ToString()</a></li>
+}
+<li><a class="careerfy-color careerfy-open-signin-tab" href="#" data-toggle="modal" data-target="#loginModel">Login</a></li>
+<li>
+    <a class="dropdown-toggle careerfy-color" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">SignUp</a>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="@Url.Action("Register","Employer")"><span class="col-sm-12" style="height:40px;background-color:#13B5EA;border-radius:20px;color:white;padding:5px 0 0 50px;">Employer</span></a>
+        <a class="dropdown-item" href="@Url.Action("Register","Employer")"><span class="col-sm-12" style="height:40px;background-color:#2E4052;border-radius:20px;color:white;padding:5px 0 0 45px; margin-top:5px;">Job Seeker</span></a>
+    </div>
+</li>

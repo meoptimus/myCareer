@@ -1,0 +1,188 @@
+﻿@model myCareer.Models.JobseekerDetailedModel
+@{
+    ViewBag.Title = "jobseeker_profile";
+    Layout = "~/Views/Layouts/Frontend/_Frontend.cshtml";
+}
+
+
+
+<div class="careerfy-main-content">
+
+    <!-- Main Section -->
+    <div class="careerfy-main-section careerfy-dashboard-fulltwo">
+        <div class="container">
+            <div class="row">
+
+                <aside class="careerfy-column-4">
+                    <div class="careerfy-typo-wrap">
+                        <div class="jobsearch_candidate_info">
+                            <figure><img src="@Url.Content("~/Content/images/")@Model.profile" alt=""></figure>
+                            <h2><a href="#">@Model.full_name</a></h2>
+                            <p>Gender  <a href="#">@Model.gender.ToUpper()</a></p>
+                            <span>@Model.current_address</span>
+                            <small>Member Since, @Model.created_at</small>
+                            <ul>
+                                <li><a href="https://facebook.com/profile.php?id=@Model.facebook_id" data-original-title="facebook" class="careerfy-icon careerfy-facebook-logo"></a></li>
+                                <li><a href="#" data-original-title="twitter" class="careerfy-icon careerfy-twitter-logo"></a></li>
+                                <li><a href="#" data-original-title="linkedin" class="careerfy-icon careerfy-linkedin-button"></a></li>
+                                <li><a href="#" data-original-title="google-plus" class="careerfy-icon careerfy-google-plus-logo-button"></a></li>
+                                <li><a href="#" data-original-title="dribbble" class="careerfy-icon careerfy-dribbble-logo"></a></li>
+                            </ul>
+                            <a href="@Url.Action("cvdownload","home")/?js_id=@Model.js_id" class="careerfy-candidate-download-btn"><i class="careerfy-icon careerfy-download-arrow"></i> Download CV</a>
+                        </div>
+                        <div class="widget widget_contact_form">
+                            <div class="careerfy-widget-title"><h2>Contact Form</h2></div>
+                            <form id="message">
+                                <ul>
+                                    <li>
+                                        <input type="hidden" name="js_id" id="js_id" value="@Model.js_id"/>
+                                        <label>Name:</label>
+                                        <input name="name" id="name" type="text"/>
+                                        <i class="careerfy-icon careerfy-user"></i>
+                                    </li>
+                                    <li>
+                                        <label>Email Address:</label>
+                                        <input name="email" id="email" type="text" />
+                                        <i class="careerfy-icon careerfy-mail"></i>
+                                    </li>
+                                    <li>
+                                        <label>Phone Number:</label>
+                                        <input name="phone" id="phone" type="text" />
+                                        <i class="careerfy-icon careerfy-technology"></i>
+                                    </li>
+                                    <li>
+                                        <label>Message:</label>
+                                        <textarea rows="4" name="message" id="message"></textarea>
+                                    </li>
+                                    <li>
+                                        <input type="submit" value="Send now">
+                                        <p>You accepts our <a href="#">Terms and Conditions</a></p>
+                                    </li>
+                                </ul>
+                            </form>
+                        </div>
+                    </div>
+                </aside>
+                <div class="careerfy-column-8">
+                    <div class="careerfy-typo-wrap">
+                        <div class="careerfy-candidate-editor">
+                            <div class="careerfy-content-title"><h2>About @Model.full_name</h2></div>
+                            <div class="careerfy-jobdetail-services">
+                                <ul class="careerfy-row">
+                                    <li class="careerfy-column-4">
+                                        <i class="careerfy-icon careerfy-salary"></i>
+                                        <div class="careerfy-services-text">Account Created <small>@Model.created_at</small></div>
+                                    </li>
+                                    <li class="careerfy-column-4">
+                                        <i class="careerfy-icon careerfy-social-media"></i>
+                                        <div class="careerfy-services-text">Address <small>@Model.current_address</small></div>
+                                    </li>
+                                    <li class="careerfy-column-4">
+                                        <i class="careerfy-icon careerfy-briefcase"></i>
+                                        <div class="careerfy-services-text">Email: <small>@Model.email</small></div>
+                                    </li>
+                                    <li class="careerfy-column-4">
+                                        <i class="careerfy-icon careerfy-user"></i>
+                                        <div class="careerfy-services-text">Gender <small>@Model.gender</small></div>
+                                    </li>
+                                    <li class="careerfy-column-4">
+                                        <i class="careerfy-icon careerfy-network"></i>
+                                        <div class="careerfy-services-text">Skills <small>@Model.skills</small></div>
+                                    </li>
+                                    <li class="careerfy-column-4">
+                                        <i class="careerfy-icon careerfy-mortarboard"></i>
+                                        <div class="careerfy-services-text">Last Activity <small>@Model.updated_at</small></div>
+                                    </li>
+                                </ul>
+                            </div>
+       
+                        </div>
+                        <div class="careerfy-candidate-title"> <h2><i class="careerfy-icon careerfy-mortarboard"></i> Education</h2> </div>
+                        <div class="careerfy-candidate-timeline">
+                            <ul class="careerfy-row">
+                                @if (Model.education.Count > 0)
+                                {
+                                    foreach (var item in Model.education)
+                                    {
+                                        <li class="careerfy-column-12">
+                                            <small>@DateTime.Parse(item.start_date.ToString()).Year - @DateTime.Parse(item.end_date.ToString()).Year</small>
+                                            <div class="careerfy-candidate-timeline-text">
+                                                <span>@item.institution</span>
+                                                <h2><a href="#">@item.education_level</a></h2>
+                                            </div>
+                                        </li>
+                                    }
+                                }
+                                else
+                                {
+                                   <li><h2 class="careerfy-candidate-title"> No Data</h2></li> 
+                                }
+                            </ul>
+                        </div>
+                        <div class="careerfy-candidate-title"> <h2><i class="careerfy-icon careerfy-social-media"></i> Experience</h2> </div>
+                        <div class="careerfy-candidate-timeline">
+                            <ul class="careerfy-row">
+
+                                @if (Model.experience.Count > 0)
+                                {
+                                    foreach (var item in Model.experience)
+                                    {
+                                        <li class="careerfy-column-12">
+                                            <small>@DateTime.Parse(item.start_date.ToString()).Year - @DateTime.Parse(item.end_date.ToString()).Year</small>
+                                            <div class="careerfy-candidate-timeline-text">
+                                                <span>@item.institution</span>
+                                                <h2><a href="#">@item.title</a></h2>
+                                            </div>
+                                        </li>
+                                    }
+                                }
+                                else
+                                {
+                                    <li><h2 class="careerfy-candidate-title"> No Data</h2></li>
+                                }
+                               
+                            </ul>
+                        </div>
+                        <div class="jobsearch_progressbar_wrap">
+                            <div class="careerfy-row">
+                                <div class="careerfy-column-6">
+                                    <div class="careerfy-candidate-title"> <h2><i class="careerfy-icon careerfy-design-skills"></i> Skills</h2> </div>
+                                    @if (Model.skills != null)
+                                    {
+                                        List<string> skills = Model.skills.ToString().Split(',').ToList();
+                                        skills.Reverse();
+                                        for (int i = 0; i < skills.Count; i++)
+                                        {
+                                            <div class="jobsearch_progressbar1" data-width='90'>@skills[i]</div>
+
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Main Section -->
+
+</div>
+<!-- Main Content -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#message").submit(function(event){
+            event.preventDefault();
+            $.post("@Url.Action("jobseekerMessage","home")", $('#message').serialize()).done(function (response, status, jqxhr) {
+                if (response == true) {
+                    $.alert("Sucessfully Sent message to the user");
+                    document.getElementById("message").reset();
+                }
+                else
+                    $.alert("Message sending failed!!!");
+
+            })
+        });
+    });
+</script>

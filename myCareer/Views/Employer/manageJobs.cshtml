@@ -1,0 +1,86 @@
+﻿@using PagedList.Mvc  
+@model  PagedList.IPagedList<myCareer.Models.jobdetails>    
+@{
+    ViewBag.Title = "manageJobs";
+    Layout = "~/Views/Layouts/Frontend/_Frontend.cshtml";
+    ViewBag.activeStatus = "manageJobs";
+}
+<div class="careerfy-main-content">
+    <div class="careerfy-main-section careerfy-dashboard-fulltwo">
+        <div class="container">
+            <div class="row">
+                @Html.Partial("_employerHeader", (String)ViewBag.activeStatus)
+                <div class="careerfy-column-9">
+                    <div class="careerfy-typo-wrap">
+                        <div class="careerfy-employer-dasboard">
+                            <div class="careerfy-employer-box-section">
+                                <!-- Profile Title -->
+                                <div class="careerfy-profile-title">
+                                    <h2>Manage Jobs</h2>
+@using (Html.BeginForm("manageJobs", "Employer", FormMethod.Get, new { id = "job_info", name = "job_info", enctype = "multipart/form-data", @class = "careerfy-employer-search" })) { 
+                                        <input name="searchkey" value="Search jobs" onblur="if(this.value == '') { this.value ='Search jobs'; }" onfocus="if(this.value =='Search jobs') { this.value = ''; }" type="text">
+                                        <input type="submit" value="">
+                                        <i class="careerfy-icon careerfy-search"></i>
+                                    }
+                                </div>
+                                <!-- Manage Jobs -->
+                                <div class="careerfy-managejobs-list-wrap">
+                                    <div class="careerfy-managejobs-list">
+                                        <!-- Manage Jobs Header -->
+                                        <div class="careerfy-table-layer careerfy-managejobs-thead">
+                                            <div class="careerfy-table-row">
+                                                <div class="careerfy-table-cell">Job Title</div>
+                                                <div class="careerfy-table-cell">Applications</div>
+                                                <div class="careerfy-table-cell">Featured</div>
+                                                <div class="careerfy-table-cell">Status</div>
+                                                <div class="careerfy-table-cell"></div>
+                                            </div>
+                                        </div>
+                                            @for (int i = 0; i < Model.Count; i++)
+                                            {
+                                        <!-- Manage Jobs Body -->
+                                        <div class="careerfy-table-layer careerfy-managejobs-tbody">
+                                            <div class="careerfy-table-row">
+                                                <div class="careerfy-table-cell">
+                                                    <h6><a href="~/employer/jobdetails/@Model[i].job_id">@Model[i].title</a></h6>
+                                                    <ul>
+                                                        <li><i class="careerfy-icon careerfy-calendar"></i> Created: <span>@Model[i].created_at</span></li>
+                                                        <li><i class="careerfy-icon careerfy-calendar"></i> Expiry: <span>@Model[i].submission_date</span></li>
+                                                        <li><i class="careerfy-icon careerfy-filter-tool-black-shape"></i> <a href="#">@Model[i].category_name</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="careerfy-table-cell"><a href="@Url.Action("interestedcandidates","employer")?job_id=@Model[i].job_id" class="careerfy-managejobs-appli">@Model[i].applications Application(s)</a></div>
+                                                <div class="careerfy-table-cell"><i class="fa fa-star-o"></i></div>
+                                                <div class="careerfy-table-cell">@if (Model[i].submission_date < DateTime.Now)
+                                                {<span class="careerfy-managejobs-option">Expired</span> }
+                                                else
+                                                {
+                                                    <span class="careerfy-managejobs-appli">Active</span>
+                                                }</div>
+                                                <div class="careerfy-table-cell">
+                                                    <div class="careerfy-managejobs-links">
+                                                        <a href="~/employer/jobDetails/@Model[i].job_id" class="careerfy-icon careerfy-view"></a>
+                                                        <a href="~/employer/editDetails/?id=@Model[i].job_id" class="careerfy-icon careerfy-edit"></a>
+                                                        <a href="~/employer/deleteJob/@Model[i].job_id" class="careerfy-icon careerfy-rubbish"></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                          }
+                                        <!-- Manage Jobs Body -->
+                                    </div>
+                                </div>
+                                <!-- Pagination -->
+                                <div class="careerfy-pagination-blog">
+                                           @Html.PagedListPager(Model, page => Url.Action("manageJobs", new { page,searchkey = Request.QueryString["searchkey"] }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded })
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

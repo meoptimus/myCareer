@@ -1,0 +1,58 @@
+﻿@model myCareer.Models.jobseeker_info
+
+@using (Html.BeginForm("editDetails", "jobseeker", FormMethod.Post, new { @class = "careerfy-employer-dasboard", @id = "emp_info", @name = "emp_info", @enctype = "multipart/form-data" }))
+{
+    <div class="careerfy-employer-box-section">
+        @Html.AntiForgeryToken()
+        <ul class="careerfy-row careerfy-employer-profile-form">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.js_id)
+            @Html.HiddenFor(model => model.created_at, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.HiddenFor(model => model.updated_at, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.HiddenFor(model => model.status, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.HiddenFor(model => model.facebooklogin_status, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.HiddenFor(model => model.facebook_id, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.HiddenFor(model => model.login_info, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.HiddenFor(model => model.profile, new { htmlAttributes = new { @class = "form-control" } })
+
+
+            <li class="careerfy-column-6">
+                <label>Name</label>
+                    @Html.EditorFor(model => model.full_name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.full_name, "", new { @class = "text-danger" })
+            </li>
+            <li class="careerfy-column-6">
+                <label>Address</label>
+                    @Html.EditorFor(model => model.current_address, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.current_address, "", new { @class = "text-danger" })
+            </li>
+                    @Html.HiddenFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.HiddenFor(model => model.email_verified, new { htmlAttributes = new { @class = "form-control" } })
+                     @Html.HiddenFor(model => model.contact_verified, new { htmlAttributes = new { @class = "form-control" } })
+            <li class="careerfy-column-6">
+                <label>Contact</label>
+                    @Html.EditorFor(model => model.contact, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.contact, "", new { @class = "text-danger" })
+            </li>
+            <li class="careerfy-column-6">
+                <label>Skills:</label>
+                    @Html.EditorFor(model => model.skills, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.skills, "", new { @class = "text-danger" })
+            </li>
+
+            <li class="careerfy-column-6">
+                <label>Gender</label>
+                    @Html.EditorFor(model => model.gender, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.gender, "", new { @class = "text-danger" })
+            </li>
+            <li class="careerfy-column-6">
+                <label>Date of Birth</label>
+                    @Html.EditorFor(model => model.dateofbirth, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.dateofbirth, "", new { @class = "text-danger" })
+            </li>
+            <li class="careerfy-column-6">
+                    <input type="submit" class="careerfy-employer-profile-submit" value="Save Setting">
+            </li>
+        </ul>
+        </div>
+}

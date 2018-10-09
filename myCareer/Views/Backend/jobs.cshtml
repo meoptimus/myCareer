@@ -1,0 +1,146 @@
+﻿@model IEnumerable<myCareer.Models.job_model>
+
+@{
+    ViewBag.Title = "jobs";
+    Layout = "~/Views/Layouts/_BackendLayout.cshtml";
+    ViewBag.active = "jobs";
+
+}
+@section head
+{
+    <link href="@Url.Content("~/Content/Backend/plugins/datatables/media/css/dataTables.bootstrap.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/Backend/plugins/datatables/extensions/Responsive/css/dataTables.responsive.css")" rel="stylesheet">
+}
+<div class="panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">Employers List </h3>
+    </div>
+    <div class="panel-body">
+        <table id="jobs" class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.title)
+                </th>
+                <th>
+                        Expire Date
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.category)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.full_address)
+                </th>
+
+                <th>
+                            Created
+                 </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.employer)
+                </th>
+  
+  
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                            Action
+                        </th>
+            </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    string str_post_time = string.Empty;
+                    var timeSpan = DateTime.Now.Subtract( DateTime.Parse(item.created_at.ToString()));
+
+                    if (timeSpan <= TimeSpan.FromSeconds(60))
+                    {
+                        str_post_time = string.Format("{0} Seconds ago", timeSpan.Seconds);
+                    }
+                    else if (timeSpan <= TimeSpan.FromMinutes(60))
+                    {
+                        str_post_time = timeSpan.Minutes > 1 ? String.Format("About {0} minutes ago", timeSpan.Minutes) : "About a minute ago";
+                    }
+                    else if (timeSpan <= TimeSpan.FromHours(24))
+                    {
+                        str_post_time = timeSpan.Hours > 1 ? String.Format("About {0} hours ago", timeSpan.Hours) : "About an hour ago";
+                    }
+                    else if (timeSpan <= TimeSpan.FromDays(30))
+                    {
+                        str_post_time = timeSpan.Days > 1 ? String.Format("About {0} days ago", timeSpan.Days) : "Yesterday";
+                    }
+                    else if (timeSpan <= TimeSpan.FromDays(365))
+                    {
+                        str_post_time = timeSpan.Days > 30 ? String.Format("About {0} months ago", timeSpan.Days / 30) : "About a month ago";
+                    }
+                    else
+                    {
+                        str_post_time = timeSpan.Days > 365 ? String.Format("About {0} years ago", timeSpan.Days / 365) : "About a year ago";
+                    }
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.submission_date)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.category)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.full_address)
+                        </td>
+                        <td>
+                            @str_post_time
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.employer)
+                        </td>
+                        <td>
+                            @if (item.status == 1)
+                            {<text><span class="label label-success">Active</span></text> }
+                            else
+                            {<text><span class="label label-danger">Inactive</span></text>}
+                        </td>
+
+                        <td>
+                            <a href="javascript:void(0)" onclick="showdetail(@item.job_id)" class="label label-default">Detail</a> | 
+                            @if (item.status == 1)
+                            {<text><a href="@Url.Action("disableJob","backend")?job_id=@item.job_id" class="label label-dark" >Disable</a></text> }
+                            else
+                            {<text><a href="@Url.Action("disableJob","backend")?job_id=@item.job_id" class="label label-primary">Enable</a></text> }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+        </div>
+</div>
+<script>
+         $(window).on('load', function () {
+        $('#jobs').dataTable({
+            "responsive": true,
+            "language": {
+                "paginate": {
+                    "previous": '<i class="fa fa-angle-left"></i>',
+                    "next": '<i class="fa fa-angle-right"></i>'
+                }
+            }
+        });
+         });
+         function showdetail(job_id)
+         {
+             $.alert({
+                 title: 'Details',
+                 content: 'url:@Url.Action("jobdetail","backend")?job_id='+job_id+'',
+                 columnClass: 'medium',
+             });
+    }
+</script>
+<script src="@Url.Content("~/Content/Backend/plugins/datatables/media/js/jquery.dataTables.js")"></script>
+<script src="@Url.Content("~/Content/Backend/plugins/datatables/media/js/dataTables.bootstrap.js")"></script>
+<script src="@Url.Content("~/Content/Backend/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js")"></script>

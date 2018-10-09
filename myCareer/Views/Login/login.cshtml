@@ -1,0 +1,27 @@
+﻿<link href="~/Content/css/bootstrap.css" rel="stylesheet" />
+<link href="~/Content/css/login.css" rel="stylesheet" />
+<div class="container">
+    <div class="card card-container">
+        <img id="profile-img" class="profile-img-card" src="~/Content/images/avatar.png" />
+        <p id="profile-name" class="profile-name-card"></p>
+
+@using (Html.BeginForm("logOn", "Login", FormMethod.Post, new { id = "login_info", name = "login_info", @enctype = "multipart/form-data" ,  @class="form-signin"}))
+{
+    @Html.AntiForgeryToken()
+            <input type="hidden" name="returnurl" id="returnurl" value="@Request.QueryString["returnUrl"]" />
+            <span id="reauth-email" class="reauth-email"></span>
+            <input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+            <div id="remember" class="checkbox">
+                <label>
+                    <input type="checkbox" value="remember-me"> Remember me
+                </label>
+            </div>
+            <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
+}
+                        <a href="#" class="forgot-password">
+                                Signup            </a>
+</div><!-- /card-container -->
+</div><!-- /container -->
+<script src="~/Content/script/bootstrap.js"></script>
+<script src="~/Content/script/jquery.js"></script>

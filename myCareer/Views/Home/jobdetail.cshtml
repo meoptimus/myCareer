@@ -1,0 +1,538 @@
+﻿ @model myCareer.Models.jobdetails
+ @{
+     ViewBag.Title = "jobdetail";
+     Layout = "~/Views/Layouts/Frontend/_Frontend.cshtml";
+}
+@{ 
+    string type = "";
+    switch (Model.job_type.ToString())
+    {
+        case "freelance":
+            type = "Freelance";
+            break;
+
+        case "temporary":
+            type = "temporary";
+            break;
+        case "parttime":
+            type = "Part Time";
+            break;
+
+        case "fulltime":
+            type = "Full Time";
+            break;
+        case "contract":
+            type = "Contract";
+            break;
+
+    }
+
+
+    }
+
+@{ 
+    string timeleft = "";
+    string remain = "";
+    TimeSpan t = Model.submission_date.Value-DateTime.Now;
+    remain = Convert.ToInt32(t.TotalDays).ToString();
+    const int SECOND = 1;
+    const int MINUTE = 60 * SECOND;
+    const int HOUR = 60 * MINUTE;
+    const int DAY = 24 * HOUR;
+    const int MONTH = 30 * DAY;
+
+    var ts = new TimeSpan(DateTime.UtcNow.Ticks - Model.submission_date.Value.Ticks);
+    double delta = Math.Abs(ts.TotalSeconds);
+
+    if (delta < 1 * MINUTE)
+    {
+        timeleft = ts.Seconds == 1 ? "one second ago " : ts.Seconds + " seconds ago ";
+    }
+
+    if (delta < 2 * MINUTE)
+    {
+        timeleft = "a minute ago ";
+
+    }
+
+    if (delta < 45 * MINUTE)
+    {
+        timeleft = ts.Minutes + " minutes ago ";
+
+    }
+
+    if (delta < 90 * MINUTE)
+    {
+        timeleft = "an hour ago ";
+
+    }
+
+    if (delta < 24 * HOUR)
+    {
+        timeleft = ts.Hours + " hours ago ";
+
+    }
+
+    if (delta < 48 * HOUR)
+    {
+        timeleft = "yesterday";
+
+    }
+
+    if (delta < 30 * DAY) {
+        timeleft = ts.Days + " days ago ";
+
+    }
+
+    if (delta < 12 * MONTH)
+    {
+        int months = Convert.ToInt32(Math.Floor((double)ts.Days / 30));
+        timeleft = months <= 1 ? "one month ago" : months + " months ago";
+    }
+    else
+    {
+        int years = Convert.ToInt32(Math.Floor((double)ts.Days / 365));
+        timeleft = years <= 1 ? "one year ago" : years + " years ago";
+    }
+}
+   <!-- SubHeader -->
+<div class="careerfy-job-subheader">
+    <span class="careerfy-banner-transparent"></span>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+
+            </div>
+        </div>
+</div>
+</div>
+<!-- SubHeader --><!-- Main Content -->
+<div class="careerfy-main-content">
+
+    <!-- Main Section -->
+    <div class="careerfy-main-section">
+        <div class="container">
+            <div class="row">
+
+                <!-- Job Detail List -->
+                <div class="careerfy-column-12">
+                    <div class="careerfy-typo-wrap">
+                        <figure class="careerfy-jobdetail-list">
+                            <span class="careerfy-jobdetail-listthumb"><img src="@Url.Content("~/Content/images")/@ViewBag.logo" alt=""></span>
+                            <figcaption>
+                                <h2>@Model.title</h2>
+                                <span><small class="careerfy-jobdetail-type">@Html.Raw(type)</small>@Model.employer.ToString().ToUpper() <small class="careerfy-jobdetail-postinfo">Posted @timeleft</small></span>
+                                <ul class="careerfy-jobdetail-options">
+                                    <li><i class="fa fa-map-marker"></i>@Model.full_address <a href="#" class="careerfy-jobdetail-view">@Model.district</a></li>
+                                    <li><i class="careerfy-icon careerfy-calendar"></i> Post Date: @Model.submission_date</li>
+                                    <li><i class="careerfy-icon careerfy-calendar"></i> Apply Before: @Model.submission_date</li>
+                                </ul>
+                                @if (ViewBag.interested != null && ViewBag.interested !=0)
+                                {
+                                    <a class="careerfy-jobdetail-btn active"><i class="careerfy-icon careerfy-add-list"></i> Already Subscribed</a>
+
+                                }
+                                else
+                                {
+                                    if (Session["role"] != null)
+                                    {
+                                        <a id="shortlist" class="careerfy-jobdetail-btn active"><i class="careerfy-icon careerfy-add-list"></i> Subscribe</a>
+
+                                    }
+                                }
+
+                                <a href="#" class="careerfy-jobdetail-btn"><i class="careerfy-icon careerfy-envelope"></i></a>
+                                <ul class="careerfy-jobdetail-media">
+                                    <li><span>Share:</span></li>
+                                    <li><a href="#" data-original-title="facebook" class="careerfy-icon careerfy-facebook-logo-in-circular-button-outlined-social-symbol"></a></li>
+                                    <li><a href="#" data-original-title="twitter" class="careerfy-icon careerfy-twitter-circular-button"></a></li>
+                                    <li><a href="#" data-original-title="linkedin" class="careerfy-icon careerfy-linkedin"></a></li>
+                                </ul>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+                <!-- Job Detail List -->
+                <!-- Job Detail Content -->
+                <div class="careerfy-column-8">
+                    <div class="careerfy-typo-wrap">
+                        <div class="careerfy-jobdetail-content">
+                            <div class="careerfy-content-title"><h2>Job Detail</h2></div>
+                            <div class="careerfy-jobdetail-services">
+                                <ul class="careerfy-row">
+                                    <li class="careerfy-column-4">
+                                        <i class="careerfy-icon careerfy-salary"></i>
+                                        <div class="careerfy-services-text">
+                                            Offerd Salary <small>
+                                                @if (Model.salaryfrom == Model.salaryto)
+                                                {
+                                                    @Model.salaryfrom
+                                                }
+                                                else
+                                                {
+                                                    @Model.salaryfrom <text> - </text> @Model.salaryto
+                                                }
+
+                                            </small>
+                                        </div>
+                                    </li>
+                                    <li class="careerfy-column-4">
+                                        <i class="careerfy-icon careerfy-social-media"></i>
+                                        <div class="careerfy-services-text">Career Level <small>@Model.job_level</small></div>
+                                    </li>
+                                    <li class="careerfy-column-4">
+                                        <i class="careerfy-icon careerfy-briefcase"></i>
+                                        <div class="careerfy-services-text">Experience <small>@Model.experience Years </small></div>
+                                    </li>
+                                    <li class="careerfy-column-4">
+                                        <i class="careerfy-icon careerfy-user"></i>
+                                        <div class="careerfy-services-text">Gender <small>@Model.gender</small></div>
+                                    </li>
+                                    <li class="careerfy-column-4">
+                                        <i class="careerfy-icon careerfy-network"></i>
+                                        <div class="careerfy-services-text">Industry <small>@Model.category_name</small></div>
+                                    </li>
+                                    <li class="careerfy-column-4">
+                                        <i class="careerfy-icon careerfy-mortarboard"></i>
+                                        <div class="careerfy-services-text">Job Type <small>@Model.job_type</small></div>
+                                    </li>
+                                </ul>
+
+
+                            </div>
+                            <div class="careerfy-content-title"><h2>Job Description</h2></div>
+                            <div class="careerfy-description">
+                                @Html.Raw(Model.description)
+                            </div>
+                           
+                            <div class="careerfy-content-title"><h2>Required skills</h2></div>
+                            <div class="careerfy-jobdetail-tags">
+                                @if (Model.skills != null)
+                                {
+                                    var skill = Model.skills.Split(',').ToList();
+                                    foreach (var skills in skill)
+                                    {
+                                        <a href="#">@skills</a>
+
+                                    }
+                                }           
+
+                            </div>
+                        </div>
+                        @if (ViewBag.recommended != null)
+                        {
+                            if (ViewBag.recommended.Count > 0)
+                            {
+                                <div class="careerfy-section-title"><h2>Similar Jobs</h2></div>
+                            }
+                            <div class="careerfy-job careerfy-joblisting-classic careerfy-jobdetail-joblisting">
+                                <ul class="careerfy-row">
+                                    @foreach (var items in ViewBag.recommended)
+                                    {
+                                        if (items.job_id != Model.job_id)
+                                        {
+                                            <li class="careerfy-column-12">
+                                                <div class="careerfy-joblisting-classic-wrap">
+                                                    <figure><a href="#"><img src="@Url.Content("~/Content/images/")@items.image" alt=""></a></figure>
+                                                    <div class="careerfy-joblisting-text">
+                                                        <div class="careerfy-list-option">
+                                                            <h2><a href="~/home/jobdetail/@items.job_id">@items.title</a> <span>Recommended</span></h2>
+                                                            <ul>
+                                                                <li><a href="@Url.Action("employer_profile","home")?emp_id=@items.emp_id">@items.employer</a></li>
+                                                                <li><i class="careerfy-icon careerfy-maps-and-flags"></i> @items.full_address</li>
+                                                                <li><i class="careerfy-icon careerfy-filter-tool-black-shape"></i> @items.category</li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="careerfy-job-userlist">
+                                                            @if (items.job_type.Equals("fulltime"))
+                                                            {
+                                                                <text><a href="#" class="careerfy-option-btn careerfy-blue">Full time</a></text>
+
+                                                            }
+                                                            else if (items.job_type.Equals("parttime"))
+                                                            {
+                                                                <text><a href="#" class="careerfy-option-btn careerfy-green">Part time</a> </text>
+                                                            }
+                                                            else if (items.job_type.Equals("temporary"))
+                                                            {
+                                                                <text><a href="#" class="careerfy-option-btn careerfy-red">Temporary</a> </text>
+                                                            }
+                                                            else if (items.job_type.Equals("freelance"))
+                                                            {
+                                                                <text><a href="#" class="careerfy-option-btn">Freelance</a> </text>
+                                                            }
+                                                            else
+                                                            {
+                                                                <text><a href="#" class="careerfy-option-btn careerfy-blue">Contract</a> </text>
+
+                                                            }
+                                                        </div>
+                                                        <div class="clearfix"></div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        }
+
+                                    }
+                                </ul>
+                            </div>
+                        }
+                      
+                    </div>
+                </div>
+                <!-- Job Detail Content -->
+                <!-- Job Detail SideBar -->
+                <aside class="careerfy-column-4">
+                    <div class="careerfy-typo-wrap">
+                        <div class="widget widget_apply_job">
+                            <div class="widget_apply_job_wrap">
+                                @{
+                                    string test = "<a id='apply' class='careerfy-applyjob-btn'>Login to apply</a>";
+                                    if (Session["is_logged_in"] != null) {
+                                        if (Session["role"].ToString() == "jobseeker")
+                                        {
+                                            if (ViewBag.count == 1)
+                                            {
+                                                test = "<a class='careerfy-applyjob-btn'>Already applied</a>";
+
+                                            }
+                                            else
+                                            {
+                                                test = "<a id='jobseekerapply' class='careerfy-applyjob-btn'>Apply for this job </a>";
+
+                                            }
+                                        }
+                                        else
+                                        {
+                                            test = "<a class='careerfy-applyjob-btn'>Apply for this job</a>";
+                                        }
+                                    }
+                                }
+                                @Html.Raw(test)
+                                <span>Application ends in @remain days</span>
+                                <div class="careerfy-applywith-title"><small>OR apply with</small></div>
+                                <ul>
+                                    <li><a href="#"><i class="careerfy-icon careerfy-facebook-logo-1"></i> Facebook</a></li>
+                                    <li><a href="#"><i class="careerfy-icon careerfy-linkedin-logo"></i> LinkedIn</a></li>
+                                </ul>
+                            </div>
+                            <a href="javascript:void(0)" class="careerfy-sendmessage-btn" onclick="sendMessage()"><i class="careerfy-icon careerfy-envelope"></i> Send a message</a>
+                        </div>
+  
+                        <div class="widget widget_add">
+                            <img src="extra-images/jobdetail-add.jpg" alt="">
+                        </div>
+                        <div class="widget widget_view_jobs">
+                            @if (string.IsNullOrEmpty(ViewBag.data.ToString()))
+                            {
+                                    <div class="careerfy-widget-title"><h2>More Jobs from @Model.employer</h2></div>
+                                
+                            }
+                            <ul>
+                                @foreach (var item in ViewBag.data)
+                                {
+                                    if (item.job_id != Model.job_id)
+                                    {
+                                        <li>
+                                            <h6><a href="~/home/jobdetail/@item.job_id">@item.title</a></h6>
+                                            <span>@item.salaryfrom - @item.salaryto</span>
+                                            <small>@item.full_address</small>
+                                        </li>
+
+                                    }
+                                }
+                            </ul>
+                            @*<a href="#" class="widget_view_jobs_btn">View all jobs <i class="careerfy-icon careerfy-arrows32"></i></a>*@
+                        </div>
+                    </div>
+                </aside>
+                <!-- Job Detail SideBar -->
+
+            </div>
+        </div>
+    </div>
+    <!-- Main Section -->
+
+</div>
+<script type="text/javascript">
+    function sendMessage()
+    {
+        event.preventDefault();
+        $.confirm({
+            title: 'Send message to Employer',
+            content: 'url:@Url.Content("~/Static/sendToEmployer.html")',
+            buttons: {
+                Login: {
+                    text: 'Send',
+                    btnClass: 'btn-orange',
+                    action: function () {
+                        this.$content.find('input#emp_id').val('@Model.emp_id');
+                        var name = this.$content.find('input#name');
+                        var emp_id = this.$content.find('input#emp_id');
+                        var email = this.$content.find('input#email');
+                        var message = this.$content.find('textarea#message1');
+                        var phone = this.$content.find('input#phone');
+                            $.post("@Url.Action("sendMessge", "home")", $('#messageToEmployer').serialize()).done(function (response, status, jqxhr) {
+                                if (response == true) {
+                                    $.alert("Sucessfully Sent");
+                                    document.getElementById("messageToEmployer").reset();
+                                }
+                                else
+                                    $.alert("Validation error!!");
+
+                            })
+
+                    }
+                },
+                later: function () {
+                    // do nothing.
+                }
+            }
+        });
+    }
+
+    $('#apply').on('click', function () {
+        @{  string status = "";
+            if (Session["userid"] == null)
+            {
+                status = "";
+            }
+            else if(Session["role"].ToString()=="jobseeker"){
+                status = "true";
+            }
+
+        }
+        var login="";
+        login = '@status';
+        if (login == '') {
+            $.confirm({
+                title: 'Login to Continue',
+                content: 'url:@Url.Content("~/Static/login.html")',
+                buttons: {
+                    Login: {
+                        text: 'Login',
+                        btnClass: 'btn-orange',
+                        action: function () {
+                            var input = this.$content.find('input#username');
+                            var inputpass = this.$content.find('input#password');
+                            var errorText = this.$content.find('.text-danger');
+                            if (!input.val().trim() && !inputpass.val().trim()) {
+                                $.alert({
+                                    content: "Fill the required fields",
+                                    type: 'red'
+                                });
+                                return false;
+                            } else {
+                                loginSa(input, inputpass);
+                            }
+                        }
+                    },
+                    later: function () {
+                        // do nothing.
+                    }
+                }
+            });
+        }
+        else {
+            confirmApp();
+        }
+
+    });
+    $('#jobseekerapply').on('click', function () {
+      confirmApp();
+    });
+    function loginSa( input,   inputpass)
+    {
+
+        jQuery.ajax({
+            type: 'POST',
+            url: '@Url.Action("loginVerify", "Login")',
+            data: {username:input.val().trim(),password:inputpass.val().trim()},
+            dataType: "json",
+            success: function (result) {
+                if (result.success == true)
+                {
+                    if (result.role == "jobseeker") {
+                        confirmApp();
+                    }
+                    else {
+                        return false;
+                    }
+                }
+                else
+                    return false;
+            }
+        });
+    }
+    function applyforthejob()
+    {
+
+        jQuery.ajax({
+            type: 'POST',
+            url: '@Url.Action("applyForTheJob", "Jobseeker")',
+            data: {job_id:'@Model.job_id' },
+            dataType: "json",
+            success: function (result) {
+                if (result === true) {
+                    $.alert("Sucessfully Applied","Success");
+                    $("#apply").text("Applied Already").attr("id","");
+                    $("#jobseekerapply").text("Applied Already").attr("id","");
+                }
+                else
+                    $.alert("Something Went Wrong!! Either already applied or Unable to apply","Error");
+            }
+        });
+
+    }
+    function confirmApp()
+    {
+        var html = "<h2>Apply for this job??</h2>";
+        html += "<br/> Salary: <span style='color:blue'>@Model.salaryfrom - @Model.salaryto </span>";
+        html += "<br/> Category:  <span style='color:blue'>@Model.category_name </span> ";
+        html += "<br/> Location: <span style='color:blue'> @Model.full_address </span>";
+        html += "<br/> Openings : <span style='color:blue'> @Model.openings </span>";
+        $.confirm({
+            title: '@Model.title',
+            content: html,
+            buttons: {
+                Apply: {
+                    text: 'Apply',
+                    btnClass: 'btn-green',
+                    action: function () {
+                        applyforthejob();
+                    }
+                },
+                later: function () {
+                    // do nothing.
+                }
+            }
+        });
+    }
+    $('#shortlist').on('click', function () {
+        $.confirm({
+            title: 'Shortlist the job??',
+            content: 'Press Confirm if you want to shortlist the job and view later!!',
+            buttons: {
+                confirm: function () {
+                    jQuery.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("interestAdd", "Jobseeker")',
+                        data: { job_id: '@Model.job_id' },
+                        dataType: "json",
+                        success: function (result) {
+                            if (result === true) {
+                                $.alert("Sucessfully Subscribed", "Success");
+                                $("#shortlist").text("Shortlisted Already").attr("id", "");
+                            }
+                            else
+                                $.alert("Something Went Wrong!! Either already applied or Unable to apply", "Error");
+                        }
+                    });
+                },
+                Cancel: function () {
+                }
+            }
+        });
+    });
+
+</script>

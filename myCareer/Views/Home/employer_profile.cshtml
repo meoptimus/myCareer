@@ -1,0 +1,170 @@
+﻿@model myCareer.Models.employerList
+@{
+    ViewBag.Title = "employer_profile";
+    Layout = "~/Views/Layouts/Frontend/_Frontend.cshtml";
+}
+<div class="careerfy-main-content">
+
+    <!-- Main Section -->
+    <div class="careerfy-main-section">
+        <div class="container">
+            <div class="row">
+
+                <!-- Job Detail List -->
+                <div class="careerfy-column-12 careerfy-typo-wrap">
+                    <figure class="careerfy-jobdetail-list">
+                        <span class="careerfy-jobdetail-listthumb"><img src="@Url.Content("~/Content/images")/@Model.logo" alt=""></span>
+                        <figcaption>
+                            <h2>@Model.company_name.ToUpper();</h2>
+                            <ul class="careerfy-jobdetail-options">
+                                <li><i class="fa fa-map-marker"></i> @Model.Address <a href="#" class="careerfy-jobdetail-view">View om Map</a></li>
+                                <li><i class="careerfy-icon careerfy-internet"></i> <a href="#">http://@{@Model.name}.net</a></li>
+                                <li><i class="careerfy-icon careerfy-mail"></i> <a href="#">Email: @Model.email</a></li>
+                                <li><i class="careerfy-icon careerfy-technology"></i> Hotline: @Model.contact</li>
+                            </ul>
+                        </figcaption>
+                    </figure>
+                </div>
+                <div class="careerfy-column-8 careerfy-typo-wrap">
+                    <div class="careerfy-jobdetail-content careerfy-employerdetail-content">
+                        <div class="careerfy-content-title"><h2>@Model.company_name.ToUpper()  Overview</h2></div>
+                        <div class="careerfy-jobdetail-services">
+                            <ul class="careerfy-row">
+                                <li class="careerfy-column-4">
+                                    <i class="careerfy-icon careerfy-group"></i>
+                                    <div class="careerfy-services-text">Created At <small>@Model.created_at</small></div>
+                                </li>
+                                <li class="careerfy-column-4">
+                                    <i class="careerfy-icon careerfy-briefcase"></i>
+                                    <div class="careerfy-services-text">Posted Jobs <small>@ViewBag.postedjobs</small></div>
+                                </li>
+                                <li class="careerfy-column-4">
+                                    <i class="careerfy-icon careerfy-folder"></i>
+                                    <div class="careerfy-services-text">Categories <small>@Model.category_name</small></div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="careerfy-content-title"><h2>Company Description</h2></div>
+                        <div class="careerfy-description">
+                            <p>@Model.description</p>
+                        </div>
+                    </div>
+                    @{ if (ViewBag.jobs != null)
+                        {
+                           <div class="careerfy-section-title">
+                                <h2>Jobs from @Model.company_name.ToUpper()</h2>
+                               </div>
+
+                            foreach (var item in ViewBag.jobs)
+                            {            <div class="careerfy-job careerfy-joblisting-classic careerfy-jobdetail-joblisting">
+                        <ul class="careerfy-row">
+                            <li class="careerfy-column-12">
+                                <div class="careerfy-joblisting-classic-wrap">
+                                    <figure><a><img src="@Url.Content("~/Content/images/")@item.image" /></a></figure>
+                                    <div class="careerfy-joblisting-text">
+                                        <div class="careerfy-list-option">
+                                            <h2><a href="@Url.Action("jobdetail","home")/@item.job_id"> @item.title.ToUpper() </a> <span></span></h2>
+                                            <ul>
+                                                <li><a href="javascript void(0)">@item.employer</a></li>
+                                                <li><i class="careerfy-icon careerfy-maps-and-flags"></i> @item.full_address</li>
+                                                <li><i class="careerfy-icon careerfy-filter-tool-black-shape"></i> Sales & Marketing</li>
+                                            </ul>
+                                        </div>
+                                        <div class="careerfy-job-userlist">
+                                            @if (item.job_type.Equals("fulltime"))
+                                            {
+                                                <text><a href="#" class="careerfy-option-btn careerfy-blue">Full time</a></text>
+
+                                            }
+                                            else if (item.job_type.Equals("parttime"))
+                                            {
+                                                <text><a href="#" class="careerfy-option-btn careerfy-green">Part time</a> </text>
+                                            }
+                                            else if (item.job_type.Equals("temporary"))
+                                            {
+                                                <text><a href="#" class="careerfy-option-btn careerfy-red">Temporary</a> </text>
+                                            }
+                                            else if (item.job_type.Equals("freelance"))
+                                            {
+                                                <text><a href="#" class="careerfy-option-btn">Freelance</a> </text>
+                                            }
+                                            else
+                                            {
+                                                <text><a href="#" class="careerfy-option-btn careerfy-blue">Contract</a> </text>
+
+                                            }
+
+                                            <a href="#" class="careerfy-job-like"><i class="fa fa-heart"></i></a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                            }
+
+                        }
+
+
+
+                    }
+
+
+
+                </div>
+                    <aside class="careerfy-column-4 careerfy-typo-wrap">
+                        <div class="widget widget_contact_form">
+                            <div class="careerfy-widget-title"><h2>Contact Form</h2></div>
+                            <form id="message">
+                                <ul>
+                                    <li>
+                                        <input type="hidden" name="emp_id" id="emp_id" value="@Model.emp_id"/>
+                                        <label>Name:</label>
+                                        <input name="name" type="text">
+                                        <i class="careerfy-icon careerfy-user"></i>
+                                    </li>
+                                    <li>
+                                        <label>Email Address:</label>
+                                        <input name="email" type="text">
+                                        <i class="careerfy-icon careerfy-mail"></i>
+                                    </li>
+                                    <li>
+                                        <label>Phone Number:</label>
+                                        <input name="phone" type="text">
+                                        <i class="careerfy-icon careerfy-technology"></i>
+                                    </li>
+                                    <li>
+                                        <label>Message:</label>
+                                        <textarea name="message" rows="6"></textarea>
+                                    </li>
+                                    <li>
+                                        <input type="submit" value="Send now">
+                                        <p>You accepts our <a href="#">Terms and Conditions</a></p>
+                                    </li>
+                                </ul>
+                            </form>
+                        </div>
+                    </aside>
+                </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+                $(document).ready(function() {
+                  $("#message").submit(function(event){
+                       event.preventDefault();
+                       $.post("@Url.Action("sendMessge","home")", $('#message').serialize()).done(function (response, status, jqxhr) {
+                           if (response == true) {
+                               $.alert("Sucessfully Sent");
+                               document.getElementById("message").reset();
+                           }
+                           else
+                               $.alert("Message sending failed!!!");
+
+                       })
+                  });
+                });
+    
+</script>

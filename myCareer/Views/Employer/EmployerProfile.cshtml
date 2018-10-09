@@ -1,0 +1,94 @@
+﻿@model myCareer.Models.employer_info
+
+@{
+    ViewBag.Title = "EmployerProfile";
+    Layout = "~/Views/Layouts/Frontend/_Frontend.cshtml";
+    ViewBag.activeStatus = "employerprofile";
+}
+  <!-- Main Content -->
+<div class="careerfy-main-content">
+
+    <!-- Main Section -->
+    <div class="careerfy-main-section careerfy-dashboard-fulltwo">
+        <div class="container">
+            <div class="row">
+                @Html.Partial("_employerHeader", (String)ViewBag.activeStatus)
+                <div class="careerfy-column-9">
+                    <div class="careerfy-typo-wrap">
+                        <form class="careerfy-employer-dasboard" method="post" action="@Url.Action("employerprofile","employer")">
+                            <div class="careerfy-employer-box-section">
+                                <div class="careerfy-profile-title"><h2>@Html.DisplayFor(Model=>Model.company_name) <span class="pull-right">@Html.Raw(ViewBag.edit)</span></h2></div>
+                                <ul class="careerfy-row careerfy-employer-profile-form">
+                                    <li class="careerfy-column-6">
+                                        <input type="hidden" name="emp_id" value="@Model.emp_id" />
+                                        <label>Company Name *</label>
+                                        <input value="@Html.DisplayFor(model=>model.company_name)" type="text" required name="company_name">
+                                    </li>
+                                    <li class="careerfy-column-6">
+                                        <label>Email *</label>
+                                        <input value="@Html.DisplayFor(model=>model.email)"  type="email" required name="email">
+                                    </li>
+                                    <li class="careerfy-column-6">
+                                        <label>Phone *</label>
+                                        <input value="@Html.DisplayFor(model=>model.phone)" type="text" required name="phone">
+                                    </li>
+                                    <li class="careerfy-column-6">
+                                        <label>Registration Type</label>
+                                        @Html.DropDownList("reg_type", ViewBag.registration_type as IEnumerable<SelectListItem>, new { @value = @Html.DisplayFor(model => model.reg_type), @required="required" })
+                                    </li>
+                                    <li class="careerfy-column-6">
+                                        <label>Category</label>
+                                        <div class="careerfy-profile-select">
+                                            @Html.DropDownList("company_type",ViewBag.company as IEnumerable<SelectListItem>, new { @value = @Html.DisplayFor(model=>model.company_type), @required = "required" })
+                                        </div>
+                                    </li>
+                                    <li class="careerfy-column-6">
+                                        <label>Address *</label>
+                                        <input value="@Html.DisplayFor(model=>model.address)" type="text"  required="required" name="address">
+                                    </li>
+                                    <li class="careerfy-column-12">
+                                        <label>Description *</label>
+                                        <textarea name="description">@Html.DisplayFor(model=>model.description)</textarea>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="careerfy-employer-box-section">
+                                <div class="careerfy-profile-title"><h2>Company Social</h2></div>
+                                <ul class="careerfy-row careerfy-employer-profile-form">
+                                    <li class="careerfy-column-6">
+                                        <label>Facebook</label>
+                                        <input placeholder="https://facebook.com/" name="faceook"  type="text"  value="@ViewBag.facebook">
+                                    </li>
+                                    <li class="careerfy-column-6">
+                                        <label>Twitter</label>
+                                        <input placeholder="https://twiiter.com/" name="twitter" type="text" value="@ViewBag.twitter">
+                                    </li>
+                                    <li class="careerfy-column-6">
+                                        <label>Google Plus</label>
+                                        <input placeholder="https://google-plus.com/" name="google" type="text" value="@ViewBag.google">
+                                    </li>
+                                    <li class="careerfy-column-6">
+                                        <label>Youtube</label>
+                                        <input placeholder="https://youtube.com/" name="youtube" type="text" value="@ViewBag.youtube">
+                                    </li>
+                                    <li class="careerfy-column-12">
+                                        <label>Website</label>
+                                        <input placeholder="https://example.com/"  name="website" type="text" value="@ViewBag.website">
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                           
+                            <input type="submit" class="careerfy-employer-profile-submit" value="Save Setting">
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Main Section -->
+
+</div>
+<!-- Main Content -->
+

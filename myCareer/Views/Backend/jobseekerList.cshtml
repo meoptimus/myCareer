@@ -1,0 +1,141 @@
+﻿
+@{
+    ViewBag.Title = "jobseekerList";
+    Layout = "~/Views/Layouts/_BackendLayout.cshtml";
+    ViewBag.active = "jobseekerlist";
+}
+@section head
+{
+<link href="@Url.Content("~/Content/Backend/plugins/datatables/media/css/dataTables.bootstrap.css")" rel="stylesheet">
+<link href="@Url.Content("~/Content/Backend/plugins/datatables/extensions/Responsive/css/dataTables.responsive.css")" rel="stylesheet">
+}
+<div class="panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">Jobseekers List</h3>
+    </div>
+    <div class="panel-body">
+        <table id="jobseekers" class="table table-striped table-bordered table-responsive">
+            <thead>
+                <tr>
+                    <th>SN</th>
+                    <th>Full Name</th>
+                    <th class="min-tablet">Address</th>
+                    <th class="min-tablet">Contact</th>
+                    <th class="min-desktop">Email</th>
+                    <th class="min-desktop">Created At</th>
+                    <th class="min-desktop">Last Updated</th>
+                    <th class="min-desktop">Status</th>
+                    <th class="min-desktop">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ int rowNo = 0; }
+                @foreach (var item in ViewBag.list)
+                {
+                    string str_post_time = string.Empty;
+                    var timeSpan = DateTime.Now.Subtract(item.updated_at);
+
+                    if (timeSpan <= TimeSpan.FromSeconds(60))
+                    {
+                        str_post_time = string.Format("{0} Seconds ago", timeSpan.Seconds);
+                    }
+                    else if (timeSpan <= TimeSpan.FromMinutes(60))
+                    {
+                        str_post_time = timeSpan.Minutes > 1 ? String.Format("About {0} minutes ago", timeSpan.Minutes) : "About a minute ago";
+                    }
+                    else if (timeSpan <= TimeSpan.FromHours(24))
+                    {
+                        str_post_time = timeSpan.Hours > 1 ? String.Format("About {0} hours ago", timeSpan.Hours) : "About an hour ago";
+                    }
+                    else if (timeSpan <= TimeSpan.FromDays(30))
+                    {
+                        str_post_time = timeSpan.Days > 1 ? String.Format("About {0} days ago", timeSpan.Days) : "Yesterday";
+                    }
+                    else if (timeSpan <= TimeSpan.FromDays(365))
+                    {
+                        str_post_time = timeSpan.Days > 30 ? String.Format("About {0} months ago", timeSpan.Days / 30) : "About a month ago";
+                    }
+                    else
+                    {
+                        str_post_time = timeSpan.Days > 365 ? String.Format("About {0} years ago", timeSpan.Days / 365) : "About a year ago";
+                    }
+                    <tr>
+                        <td>@(rowNo += 1)</td>
+                        <td>@item.full_name</td>
+                        <td>@item.current_address</td>
+                        <td>@item.contact</td>
+                        <td>@item.email</td>
+                        <td>@item.created_at.Date.ToString("yyyy-MM-dd")</td>
+                        <td>@str_post_time</td>
+                        <td>
+                            @if (item.status == "ACTIVE")
+                        {<text><span class="label label-success">Active</span></text> }
+                        else
+                        {<text><span class="label label-danger">Inactive</span></text>}
+                    </td>
+                    <td>
+                        <a href="javascript:void(0)" onclick="showdetail(@item.js_id)" class="label label-default">View</a> |
+                        @if (item.status == "ACTIVE")
+                        {<text><a href="" class="label label-dark" onclick="change(@rowNo,@item.js_id)">Disable</a></text> }
+                        else
+                        {<text><a href="" class="label label-primary" onclick="change(@rowNo,@item.js_id)">Enable</a></text> }
+
+                </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    function change(row,id)
+    {
+        jQuery.ajax({
+            type: 'POST',
+            url: '@Url.Action("changeJobseekerStatus", "Backend")',
+            data: {id:id},
+            dataType: "json",
+            success: function (result) {
+                if (result.success) {
+                    if (result.status == "ACTIVE") {
+                        $('#jobseekers tr:nth-child(' + row + ') td:nth-child(9)').html('<a href="#" class="label label-default">View</a> | <a href="#" class="label label-dark" onclick="change(' + row + ',' + id + ')">Disable</a>');
+                        $('#jobseekers tr:nth-child(' + row + ') td:nth-child(8)').html('<span class="label label-success">Active</span>');
+                    }
+                    else
+                    {
+                        $('#jobseekers tr:nth-child(' + row + ') td:nth-child(9)').html('<a href="#" class="label label-default">View</a> | <a href="#" class="label label-primary" onclick="change(' + row + ',' + id + ')">Enable</a>');
+                        $('#jobseekers tr:nth-child(' + row + ') td:nth-child(8)').html('<span class="label label-danger">Inactive</span>');
+                }
+                }
+                else {
+                    alert(result.errorMsg);
+                }
+            }
+        });
+    }
+ 
+    $(window).on('load', function () {
+        $('# jobseekers').dataTable({
+            "responsive": true,
+            "language": {
+                "paginate": {
+                    "previous": '<i class="fa fa-angle-left"></i>',
+                    "next": '<i class="fa fa-angle-right"></i>'
+                }
+            }
+        });
+    });
+    function showdetail(js_id) {
+        $.alert({
+            title: 'Details',
+            content: 'url:@Url.Action("jobseekerdetail","backend")?js_id=' + js_id + '',
+            columnClass: 'medium',
+        });
+    }
+</script>
+<script src="@Url.Content("~/Content/Backend/plugins/datatables/media/js/jquery.dataTables.js")"></script>
+<script src="@Url.Content("~/Content/Backend/plugins/datatables/media/js/dataTables.bootstrap.js")"></script>
+<script src="@Url.Content("~/Content/Backend/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js")"></script>
+
+
+

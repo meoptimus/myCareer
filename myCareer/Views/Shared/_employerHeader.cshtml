@@ -1,0 +1,46 @@
+﻿@{string img;
+    if (Session["profileimage"] != null)
+    {
+        img = Url.Content("~/Content/images/") + Session["profileimage"].ToString();
+    }
+
+    else
+    {
+        img = "Content/extra-images/candidate-01.jpg";
+    }
+}
+<aside class="careerfy-column-3">
+    <div class="careerfy-typo-wrap">
+        <div class="careerfy-employer-dashboard-nav">
+            <figure>
+                <a href="#" class="employer-dashboard-thumb"><img src="@img" alt=""></a>
+                <figcaption>
+                    <form action="@Url.Action("changeProfile","employer")" method="post" enctype="multipart/form-data" id="employerProfile">
+                        <div class="careerfy-fileUpload">
+                            <span><i class="careerfy-icon careerfy-add"></i> Upload Photo</span>
+                            <input type="file" class="careerfy-upload" name="photo" id="empphoto" onchange="employerProfile()" />
+                        </div>
+                    </form>
+                    <h2>@Session["name"]</h2>
+                </figcaption>
+            </figure>
+            <ul>
+             <li @if (ViewBag.activeStatus == "employerprofile")
+            {<text>class="active"</text>}><a href="~/employer/employerprofile"><i class="careerfy-icon careerfy-user"></i> Company Profile</a></li>
+                <li @if (ViewBag.activeStatus == "manageJobs")
+            {<text>class="active"</text>}><a href="~/employer/managejobs"><i class="careerfy-icon careerfy-briefcase-1"></i> Manage Jobs</a></li>
+                <li @if (ViewBag.activeStatus == "shortlist")
+                { <text> class="active" </text> }><a href="@Url.Action("shortListedCandidates","Employer")"><i class="careerfy-icon careerfy-heart"></i> Shortlisted Resumes</a></li>
+                <li @if (ViewBag.activeStatus == "interested")
+                { <text> class="active" </text> }><a href="@Url.Action("interestedCandidates","Employer")"><i class="careerfy-icon careerfy-heart"></i>Job Applications</a></li>
+                <li @if (ViewBag.activeStatus == "postJob")
+            {<text>class="active"</text>}><a href="~/employer/postjob"><i class="careerfy-icon careerfy-plus"></i> Post a New Job</a></li>
+                <li @if (ViewBag.activeStatus == "changepassword")
+            {<text>class="active"</text>}><a href="@Url.Action("changePassword","employer")"><i class="careerfy-icon careerfy-multimedia"></i> Change Password</a></li>
+                <li @if (ViewBag.activeStatus == "logout")
+            {<text>class="active"</text>}><a href="@Url.Action("logout","login")"><i class="careerfy-icon careerfy-logout"></i> Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</aside>
+

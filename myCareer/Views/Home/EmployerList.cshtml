@@ -1,0 +1,214 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<myCareer.Models.employerList>
+
+@{
+    ViewBag.Title = "Employeer List";
+    Layout = "~/Views/Layouts/Frontend/_Frontend.cshtml";
+    ViewBag.activeNav = "employerlist";
+}
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<!-- Main Content -->
+<div class="careerfy-main-content">    <!-- Main Section -->
+    <div class="careerfy-main-section careerfy-top-full">
+        <div class="container">
+            <div class="row">
+
+                <aside class="careerfy-column-3">
+                    <div class="careerfy-typo-wrap">
+                        <form method="get" id="searchform">
+                            <div class="careerfy-search-filter-wrap careerfy-without-toggle">
+                                <h2><a href="#">Top Employer</a></h2>
+
+                                <div class="careerfy-search-box">
+                                    <input placeholder="search" name="searchkey" id="searchKey" type="text" />
+
+                                    <input type="submit" id="submitBtn" value="" onclick="search(); return false;" />
+                                    <i class="careerfy-icon careerfy-search"></i>
+                                </div>
+
+                            </div>
+                            <input type="hidden" name="display" id="display" />
+                            <input type="hidden" name="cat" id="cat" />
+                            <input type="hidden" name="time" id="timet" />
+                        </form>
+                        <form id="setform">
+                            <div class="careerfy-search-filter-wrap careerfy-search-filter-toggle">
+                                <h2><a href="#" class="careerfy-click-btn">Last Activity</a></h2>
+                                <div class="careerfy-checkbox-toggle">
+
+                                    <ul class="careerfy-checkbox">
+                                        <li>
+                                            <input type="radio" id="1" name="time" onchange="setList()" value="1" />
+                                            <label for="1"><span></span>Last Hour</label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" id="24" name="time" onchange="setList()" value="24" />
+                                            <label for="24"><span></span>Last 24 hours</label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" id="168" name="time" onchange="setList()" value="168" />
+                                            <label for="168"><span></span>Last 7 days</label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" id="336" name="time" onchange="setList()" value="336" />
+                                            <label for="336"><span></span>Last 14 days</label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" id="720" name="time" onchange="setList()" value="720" />
+                                            <label for="720"><span></span>Last 30 days</label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" id="all" name="time" onchange="setList()" value="all" />
+                                            <label for="all"><span></span>All</label>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div>
+                            <div class="careerfy-search-filter-wrap careerfy-search-filter-toggle">
+                                <h2><a href="#" class="careerfy-click-btn">Categories</a></h2>
+                                <div class="careerfy-checkbox-toggle">
+                                    <ul class="careerfy-checkbox" id="categoryList"></ul>
+                                    <a href="javascript:void(0);" class="careerfy-seemore" onclick="setAllCompanies(); this.style.display = 'none';">+see more</a>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </aside>
+                <div class="careerfy-column-9">
+                    <div class="careerfy-typo-wrap">
+                        <center id="loading"><img src="~/Content/27.gif" height="50" width="50" /></center>
+                        <div id="datatoshow" style="margin-top:-70px">
+                        </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Main Content -->
+<script type="text/javascript">
+    
+    $(document).ready(function () {
+        $.ajax({
+            url: "@Url.Action("employer_listajax","home")",
+            type: "GET",
+        contentType: "application/json; charset=utf-8",
+        datatype: JSON,
+        beforeSend: function (xhr) {
+            $('#loading').show();
+        },
+        success: function (result) {
+            $('#loading').hide();
+            $('#datatoshow').html(result);
+        },
+        error: function (data) { }
+    });
+    
+
+        $.ajax({
+            url: "@Url.Action("jsonCompany","home")",
+            type: "GET",
+        contentType: "application/json; charset=utf-8",
+        datatype: JSON,
+        success: function (result) {
+            var html = "";
+            $(result).each(function() {
+                html+="<li>";
+                html += '<input type="checkbox" id="' + this.id + '" name="' + this.id + '" onchange="setList()" />';
+                html += '<label for="' + this.id + '"><span></span>' + this.category_name + '</label>';
+                html+='<small></small>'
+                html += '</li>';
+            });
+            $('#categoryList').html(html);
+        }
+    });
+
+    });
+
+    function setAllCompanies()
+    {
+        $.ajax({
+            url: "@Url.Action("jsonCompanyAll", "home")",
+            type: "GET",
+        contentType: "application/json; charset=utf-8",
+        datatype: JSON,
+        success: function (result) {
+            var html = "";
+            $(result).each(function() {
+                html+="<li>";
+                html += '<input type="checkbox" id="' + this.id + '" name="' + this.id + '" onchange="setList()"/>';
+                html += '<label for="' + this.id + '"><span></span>' + this.category_name + '</label>';
+                html+='<small></small>'
+                html += '</li>';
+            });
+            $('#categoryList').html(html);
+        },
+        error: function(data) {}
+    });
+    }
+    function setList() {
+        
+        var formdata = $('#setform').serialize();
+        var res = formdata.split("&");
+        time = "";
+        cat = "";
+        if (res.length > 0) {
+            for (var i = 0; i < res.length; i++) {
+                var temp = res[i].split("=")
+                if (temp[0] == "time") {
+                    time += temp[1];
+                }
+                else {
+                    if (cat == "")
+                        cat += temp[0];
+                    else
+                        cat += "," + temp[0];
+                }
+            }
+        }
+        $('#cat').val(cat);
+        $('#timet').val(time);
+        $("#submitBtn").trigger("click");
+
+
+
+    }
+    function setGrid()
+    {
+        $("#display").val("grid");
+        $("#submitBtn").trigger("click");
+
+    }
+
+    function setListg()
+    {
+        $("#display").val("list");
+        $("#submitBtn").trigger("click");
+
+
+    }
+    function search() {
+        var org = $('#searchform').serialize();
+        $.ajax({
+            url: "@Url.Action("employer_listajax","home")",
+            type: "GET",
+        data: org,
+        contentType: "application/json; charset=utf-8",
+        datatype: JSON,
+        beforeSend: function (xhr) {
+            $('#loading').show();
+        },
+        success: function (result) {
+            $('#loading').hide();
+            $('#datatoshow').html(result);
+        },
+
+        });
+    return false;
+    }
+   
+</script>

@@ -1,0 +1,104 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<myCareer.Models.InterestDetailedviewModel>
+@{
+    ViewBag.Title = "savedJobs";
+    Layout = "~/Views/Layouts/Frontend/_Frontend.cshtml";
+    ViewBag.activeStatus = "savedjobs";
+}
+<div class="careerfy-main-content">
+    <div class="careerfy-main-section careerfy-dashboard-fulltwo">
+        <div class="container">
+            <div class="row">
+                @Html.Partial("_jobseekerHeader", (String)ViewBag.activeStatus)
+                <div class="careerfy-column-9">
+                    <div class="careerfy-typo-wrap">
+                        <div class="careerfy-employer-box-section">
+                            <div class="careerfy-profile-title">
+                                <h2>Saved Jobs</h2>
+                                <form class="careerfy-employer-search" method="get" action="@Url.Action("savedJobs","jobseeker")">
+                                    <input name="searchkey" value="Search jobs/employer" onblur="if (this.value == '') { this.value = 'Search jobs/employer'; }" onfocus="    if (this.value == 'Search jobs/employer') { this.value = ''; }" type="text">
+                                    <input value="" type="submit">
+                                    <i class="careerfy-icon careerfy-search"></i>
+                                </form>
+                            </div>
+                            <div class="careerfy-candidate-savedjobs">
+                                <div class="careerfy-candidate-savedjobs-wrap">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Job Title</th>
+                                                <th>Company</th>
+                                                <th>Date Saved</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @for (int i=0; i< Model.Count; i++){
+                                                <tr>
+                                                    <td>
+                                                        <a href="#" class="careerfy-savedjobs-thumb"><img src="@Url.Content("~/Content/images/")@Model[i].image" alt=""></a>
+                                                        <h2><a href="@Url.Action("jobdetail","Home")/@Model[i].job_id">@Model[i].job </a></h2>
+                                                    </td>
+                                                    <td><span><a href="@Url.Action("employerinfo","Home")/@Model[i].emp_id">@Model[i].employer.ToString().ToUpper()</span></td>
+                                                    <td>@Model[i].created_at</td>
+                                                    <td>
+                                                        <a href="javascript:void(0)" onclick="removeConfirm(@Model[i].int_id)" class="careerfy-savedjobs-links"><i class="careerfy-icon careerfy-rubbish"></i></a>
+                                                    </td>
+                                                </tr>
+    }
+
+                                           
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="careerfy-pagination-blog">
+                                    @Html.PagedListPager(Model, page => Url.Action("savedJobs", new { page, searchkey = Request.QueryString["searchkey"] }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function removeConfirm(int_id)
+    {
+      
+            var html = "<h2>Do you want to remove??</h2>";
+            $.confirm({
+                title: 'Remove',
+                type:'red',
+                buttons: {
+                    Remove: {
+                        text: 'Remove',
+                        btnClass: 'btn-red',
+                        action: function () {
+                            jQuery.ajax({
+                                type: 'POST',
+                                url: '@Url.Action("removeInterest", "Jobseeker")',
+                                data: { int_id: int_id },
+                                dataType: "json",
+                                success: function (result) {
+                                    if (result === true) {
+                                        $.alert("Sucessfully Removed", "Success");
+                                        window.location.reload();
+                                    }
+                                    else
+                                        $.alert("Something Went Wrong!!", "Error");
+                                }
+                            });
+                        }
+                    },
+                    later: function () {
+                        // do nothing.
+                    }
+                }
+            });
+        
+    }
+</script>

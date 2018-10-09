@@ -1,0 +1,824 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6C90C454-A678-42E8-9A50-36DCFC10CC0B}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>myCareer</RootNamespace>
+    <AssemblyName>myCareer</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13\lib\itextsharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="LinqKit, Version=1.1.15.0, Culture=neutral, PublicKeyToken=bc217f8844052a91, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqKit.1.1.15\lib\net45\LinqKit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Office.Interop.Word, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\Microsoft.Office.Interop.Word.15.0.4797.1003\lib\net20\Microsoft.Office.Interop.Word.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Web.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Webpages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Deployment">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Webpages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Webpages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\27.gif" />
+    <Content Include="Content\Backend\AdminLTE.css" />
+    <Content Include="Content\Backend\css\bootstrap.min.css" />
+    <Content Include="Content\Backend\css\demo\jasmine.css" />
+    <Content Include="Content\Backend\css\demo\jquery-steps.min.css" />
+    <Content Include="Content\Backend\css\style.css" />
+    <Content Include="Content\Backend\img\av1.png" />
+    <Content Include="Content\Backend\img\av2.png" />
+    <Content Include="Content\Backend\img\av3.png" />
+    <Content Include="Content\Backend\img\av4.png" />
+    <Content Include="Content\Backend\img\av5.png" />
+    <Content Include="Content\Backend\img\av6.png" />
+    <Content Include="Content\Backend\img\av7.png" />
+    <Content Include="Content\Backend\img\favicon.ico" />
+    <Content Include="Content\Backend\img\gamma\medium\gallery-1.png" />
+    <Content Include="Content\Backend\img\gamma\medium\gallery-2.png" />
+    <Content Include="Content\Backend\img\gamma\medium\gallery-3.png" />
+    <Content Include="Content\Backend\img\gamma\medium\gallery-4.png" />
+    <Content Include="Content\Backend\img\gamma\medium\gallery-5.png" />
+    <Content Include="Content\Backend\img\gamma\medium\gallery-6.png" />
+    <Content Include="Content\Backend\img\gamma\medium\gallery-7.png" />
+    <Content Include="Content\Backend\img\gamma\medium\gallery-8.png" />
+    <Content Include="Content\Backend\img\gamma\medium\gallery-9.png" />
+    <Content Include="Content\Backend\img\photos\profile-pic-1.png" />
+    <Content Include="Content\Backend\img\thumbs\6.jpg" />
+    <Content Include="Content\Backend\img\thumbs\img1.jpg" />
+    <Content Include="Content\Backend\img\thumbs\img2.jpg" />
+    <Content Include="Content\Backend\img\thumbs\img3.jpg" />
+    <Content Include="Content\Backend\img\thumbs\img4.png" />
+    <Content Include="Content\Backend\img\user.png" />
+    <Content Include="Content\Backend\js\bootstrap.min.js" />
+    <Content Include="Content\Backend\js\demo\charts-flot.js" />
+    <Content Include="Content\Backend\js\demo\charts-morris.js" />
+    <Content Include="Content\Backend\js\demo\dashboard-v2.js" />
+    <Content Include="Content\Backend\js\demo\dashboard-v3.js" />
+    <Content Include="Content\Backend\js\demo\form-component.js" />
+    <Content Include="Content\Backend\js\demo\form-layout.js" />
+    <Content Include="Content\Backend\js\demo\form-switchery.js" />
+    <Content Include="Content\Backend\js\demo\form-validation.js" />
+    <Content Include="Content\Backend\js\demo\form-wizard.js" />
+    <Content Include="Content\Backend\js\demo\fullcalendar.js" />
+    <Content Include="Content\Backend\js\demo\index.js" />
+    <Content Include="Content\Backend\js\demo\mail-compose.js" />
+    <Content Include="Content\Backend\js\demo\maps-vectormap.js" />
+    <Content Include="Content\Backend\js\demo\misc-gmaps.js" />
+    <Content Include="Content\Backend\js\demo\pages-gallery.js" />
+    <Content Include="Content\Backend\js\demo\pages-register.js" />
+    <Content Include="Content\Backend\js\demo\tables-datatables.js" />
+    <Content Include="Content\Backend\js\demo\tables-footable.js" />
+    <Content Include="Content\Backend\js\demo\ui-animation.js" />
+    <Content Include="Content\Backend\js\demo\ui-dragdrop.js" />
+    <Content Include="Content\Backend\js\demo\ui-nested-lists.js" />
+    <Content Include="Content\Backend\js\demo\ui-panels.js" />
+    <Content Include="Content\Backend\js\demo\ui-typography.js" />
+    <Content Include="Content\Backend\js\demo\widgets.js" />
+    <Content Include="Content\Backend\js\demo\wizard.js" />
+    <Content Include="Content\Backend\js\demo\x-editable.js" />
+    <Content Include="Content\Backend\js\jquery-1.11.2.min.js" />
+    <Content Include="Content\Backend\js\jquery-2.1.1.min.js" />
+    <Content Include="Content\Backend\js\jquery-migrate-1.2.1.min.js" />
+    <Content Include="Content\Backend\js\jquery-ui.min.js" />
+    <Content Include="Content\Backend\js\modernizr.custom.js" />
+    <Content Include="Content\Backend\js\moment.js" />
+    <Content Include="Content\Backend\js\scripts.js" />
+    <Content Include="Content\Backend\plugins\bootstrap-datepicker\bootstrap-datepicker.js" />
+    <Content Include="Content\Backend\plugins\bootstrap-select\bootstrap-select.min.css" />
+    <Content Include="Content\Backend\plugins\bootstrap-select\bootstrap-select.min.js" />
+    <Content Include="Content\Backend\plugins\bootstrap-tagsinput\bootstrap-tagsinput.min.js" />
+    <Content Include="Content\Backend\plugins\bootstrap-timepicker\bootstrap-timepicker.min.js" />
+    <Content Include="Content\Backend\plugins\bootstrap-validator\bootstrapValidator.min.css" />
+    <Content Include="Content\Backend\plugins\bootstrap-validator\bootstrapValidator.min.js" />
+    <Content Include="Content\Backend\plugins\bootstrap-wizard\jquery.bootstrap.wizard.min.js" />
+    <Content Include="Content\Backend\plugins\bootstrap3-editable\js\bootstrap-editable.min.js" />
+    <Content Include="Content\Backend\plugins\chosen\chosen.jquery.min.js" />
+    <Content Include="Content\Backend\plugins\datatables\extensions\Responsive\css\dataTables.responsive.css" />
+    <Content Include="Content\Backend\plugins\datatables\extensions\Responsive\js\dataTables.responsive.min.js" />
+    <Content Include="Content\Backend\plugins\datatables\media\css\dataTables.bootstrap.css" />
+    <Content Include="Content\Backend\plugins\datatables\media\images\sort_asc.png" />
+    <Content Include="Content\Backend\plugins\datatables\media\images\sort_asc_disabled.png" />
+    <Content Include="Content\Backend\plugins\datatables\media\images\sort_desc.png" />
+    <Content Include="Content\Backend\plugins\datatables\media\images\sort_desc_disabled.png" />
+    <Content Include="Content\Backend\plugins\datatables\media\js\dataTables.bootstrap.js" />
+    <Content Include="Content\Backend\plugins\datatables\media\js\jquery.dataTables.js" />
+    <Content Include="Content\Backend\plugins\dropzone\dropzone.min.js" />
+    <Content Include="Content\Backend\plugins\easy-pie-chart\jquery.easypiechart.min.js" />
+    <Content Include="Content\Backend\plugins\fast-click\fastclick.min.js" />
+    <Content Include="Content\Backend\plugins\flot-charts\jquery.flot.categories.js" />
+    <Content Include="Content\Backend\plugins\flot-charts\jquery.flot.min.js" />
+    <Content Include="Content\Backend\plugins\flot-charts\jquery.flot.orderBars.js" />
+    <Content Include="Content\Backend\plugins\flot-charts\jquery.flot.pie.min.js" />
+    <Content Include="Content\Backend\plugins\flot-charts\jquery.flot.resize.min.js" />
+    <Content Include="Content\Backend\plugins\flot-charts\jquery.flot.selection.js" />
+    <Content Include="Content\Backend\plugins\flot-charts\jquery.flot.spline.js" />
+    <Content Include="Content\Backend\plugins\flot-charts\jquery.flot.stack.js" />
+    <Content Include="Content\Backend\plugins\flot-charts\jquery.flot.time.js" />
+    <Content Include="Content\Backend\plugins\flot-charts\jquery.flot.tooltip.min.js" />
+    <Content Include="Content\Backend\plugins\font-awesome\css\font-awesome.min.css" />
+    <Content Include="Content\Backend\plugins\fooTable\dist\footable.all.min.js" />
+    <Content Include="Content\Backend\plugins\fullcalendar\fullcalendar.min.js" />
+    <Content Include="Content\Backend\plugins\fullcalendar\lib\jquery-ui.custom.min.js" />
+    <Content Include="Content\Backend\plugins\fullcalendar\lib\moment.min.js" />
+    <Content Include="Content\Backend\plugins\gamma-gallery\js\gamma.js" />
+    <Content Include="Content\Backend\plugins\gamma-gallery\js\jquery.history.js" />
+    <Content Include="Content\Backend\plugins\gamma-gallery\js\jquery.masonry.min.js" />
+    <Content Include="Content\Backend\plugins\gamma-gallery\js\jquerypp.custom.js" />
+    <Content Include="Content\Backend\plugins\gamma-gallery\js\js-url.min.js" />
+    <Content Include="Content\Backend\plugins\gamma-gallery\js\modernizr.custom.70736.js" />
+    <Content Include="Content\Backend\plugins\gmaps\gmaps.js" />
+    <Content Include="Content\Backend\plugins\gmaps\gmaps.min.js" />
+    <Content Include="Content\Backend\plugins\ion-rangeslider\ion.rangeSlider.min.js" />
+    <Content Include="Content\Backend\plugins\jquery-nestable\jquery.nestable.min.js" />
+    <Content Include="Content\Backend\plugins\jquery-print\jQuery.print.js" />
+    <Content Include="Content\Backend\plugins\jquery-ricksaw-chart\js\d3.v2.js" />
+    <Content Include="Content\Backend\plugins\jquery-ricksaw-chart\js\raphael-min.js" />
+    <Content Include="Content\Backend\plugins\jquery-ricksaw-chart\js\rickshaw.min.js" />
+    <Content Include="Content\Backend\plugins\jquery-ricksaw-chart\ricksaw.js" />
+    <Content Include="Content\Backend\plugins\jquery-steps\jquery-steps.min.js" />
+    <Content Include="Content\Backend\plugins\jvectormap\jquery-jvectormap-ar-mill.js" />
+    <Content Include="Content\Backend\plugins\jvectormap\jquery-jvectormap-au-mill.js" />
+    <Content Include="Content\Backend\plugins\jvectormap\jquery-jvectormap-de-mill.js" />
+    <Content Include="Content\Backend\plugins\jvectormap\jquery-jvectormap-north_america-mill.js" />
+    <Content Include="Content\Backend\plugins\jvectormap\jquery-jvectormap-uk_countries-mill.js" />
+    <Content Include="Content\Backend\plugins\jvectormap\jquery-jvectormap-us-aea-en.js" />
+    <Content Include="Content\Backend\plugins\jvectormap\jquery-jvectormap-world-mill-en.js" />
+    <Content Include="Content\Backend\plugins\jvectormap\jquery-jvectormap.css" />
+    <Content Include="Content\Backend\plugins\jvectormap\jquery-jvectormap.min.js" />
+    <Content Include="Content\Backend\plugins\masked-input\bootstrap-inputmask.min.js" />
+    <Content Include="Content\Backend\plugins\masked-input\jquery.maskedinput.min.js" />
+    <Content Include="Content\Backend\plugins\metismenu\metismenu.min.js" />
+    <Content Include="Content\Backend\plugins\moment-range\moment-range.js" />
+    <Content Include="Content\Backend\plugins\moment\moment.min.js" />
+    <Content Include="Content\Backend\plugins\morris-js\morris.min.css" />
+    <Content Include="Content\Backend\plugins\morris-js\morris.min.js" />
+    <Content Include="Content\Backend\plugins\morris-js\raphael-js\raphael.min.js" />
+    <Content Include="Content\Backend\plugins\nanoscrollerjs\jquery.nanoscroller.min.js" />
+    <Content Include="Content\Backend\plugins\noUiSlider\jquery.nouislider.all.min.js" />
+    <Content Include="Content\Backend\plugins\pace\pace.min.css" />
+    <Content Include="Content\Backend\plugins\pace\pace.min.js" />
+    <Content Include="Content\Backend\plugins\parsley\parsley.min.js" />
+    <Content Include="Content\Backend\plugins\screenfull\screenfull.js" />
+    <Content Include="Content\Backend\plugins\skycons\skycons.min.js" />
+    <Content Include="Content\Backend\plugins\summernote\summernote.min.js" />
+    <Content Include="Content\Backend\plugins\switchery\switchery.min.css" />
+    <Content Include="Content\Backend\plugins\switchery\switchery.min.js" />
+    <Content Include="Content\Backend\plugins\tag-it\tag-it.min.js" />
+    <Content Include="Content\css\404.css" />
+    <Content Include="Content\css\bootstrap.css" />
+    <Content Include="Content\css\color.css" />
+    <Content Include="Content\css\flaticon.css" />
+    <Content Include="Content\css\font-awesome.css" />
+    <Content Include="Content\css\homepage-two.css" />
+    <Content Include="Content\css\login.css" />
+    <Content Include="Content\css\responsive.css" />
+    <Content Include="Content\css\slick-slider.css" />
+    <Content Include="Content\extra-images\about-us-thumb.png" />
+    <Content Include="Content\extra-images\banner-bg.jpg" />
+    <Content Include="Content\extra-images\banner-two-bg.jpg" />
+    <Content Include="Content\extra-images\blog-grid-1.jpg" />
+    <Content Include="Content\extra-images\blog-grid-2.jpg" />
+    <Content Include="Content\extra-images\blog-grid-3.jpg" />
+    <Content Include="Content\extra-images\candidate-01.jpg" />
+    <Content Include="Content\extra-images\candidate-02.jpg" />
+    <Content Include="Content\extra-images\candidate-03.jpg" />
+    <Content Include="Content\extra-images\candidate-04.jpg" />
+    <Content Include="Content\extra-images\candidate-05.jpg" />
+    <Content Include="Content\extra-images\candidate-06.jpg" />
+    <Content Include="Content\extra-images\candidate-07.jpg" />
+    <Content Include="Content\extra-images\candidate-08.jpg" />
+    <Content Include="Content\extra-images\candidate-add-popup-textarea.png" />
+    <Content Include="Content\extra-images\candidate-dashboard-editor.jpg" />
+    <Content Include="Content\extra-images\candidate-dashboard-navthumb.jpg" />
+    <Content Include="Content\extra-images\candidate-listing-thumb-1.jpg" />
+    <Content Include="Content\extra-images\candidate-listing-thumb-2.jpg" />
+    <Content Include="Content\extra-images\candidate-listing-thumb-3.jpg" />
+    <Content Include="Content\extra-images\candidate-listing-thumb-4.jpg" />
+    <Content Include="Content\extra-images\candidate-listing-thumb-5.jpg" />
+    <Content Include="Content\extra-images\candidate-listing-thumb-6.jpg" />
+    <Content Include="Content\extra-images\candidate-saved-jobs-thumb-2.png" />
+    <Content Include="Content\extra-images\candidate-saved-jobs-thumb-3.png" />
+    <Content Include="Content\extra-images\candidate-saved-jobs-thumb-4.png" />
+    <Content Include="Content\extra-images\candidate-saved-jobs-thumb-5.png" />
+    <Content Include="Content\extra-images\candidate-saved-jobs-thumb-6.png" />
+    <Content Include="Content\extra-images\candidate-saved-jobs-thumb.png" />
+    <Content Include="Content\extra-images\candidate-thumb-1.jpg" />
+    <Content Include="Content\extra-images\candidates-grid-thumb-1.jpg" />
+    <Content Include="Content\extra-images\candidates-grid-thumb-2.jpg" />
+    <Content Include="Content\extra-images\candidates-grid-thumb-3.jpg" />
+    <Content Include="Content\extra-images\candidates-grid-thumb-4.jpg" />
+    <Content Include="Content\extra-images\candidates-grid-thumb-5.jpg" />
+    <Content Include="Content\extra-images\candidates-grid-thumb-6.jpg" />
+    <Content Include="Content\extra-images\candidates-grid-thumb-7.jpg" />
+    <Content Include="Content\extra-images\candidates-grid-thumb-8.jpg" />
+    <Content Include="Content\extra-images\candidates-grid-thumb-9.jpg" />
+    <Content Include="Content\extra-images\company-review-1.jpg" />
+    <Content Include="Content\extra-images\company-review-2.jpg" />
+    <Content Include="Content\extra-images\company-review-3.jpg" />
+    <Content Include="Content\extra-images\employer-01.png" />
+    <Content Include="Content\extra-images\employer-02.png" />
+    <Content Include="Content\extra-images\employer-03.png" />
+    <Content Include="Content\extra-images\employer-04.png" />
+    <Content Include="Content\extra-images\employer-05.png" />
+    <Content Include="Content\extra-images\employer-06.png" />
+    <Content Include="Content\extra-images\employer-07.png" />
+    <Content Include="Content\extra-images\employer-08.png" />
+    <Content Include="Content\extra-images\employer-company-photo-1.jpg" />
+    <Content Include="Content\extra-images\employer-company-photo-1.png" />
+    <Content Include="Content\extra-images\employer-company-photo-2.png" />
+    <Content Include="Content\extra-images\employer-company-photo-3.png" />
+    <Content Include="Content\extra-images\employer-company-photo-4.png" />
+    <Content Include="Content\extra-images\employer-company-photo-5.png" />
+    <Content Include="Content\extra-images\employer-company-photo-6.png" />
+    <Content Include="Content\extra-images\employer-company-photo-7.png" />
+    <Content Include="Content\extra-images\employer-dashboard-1.png" />
+    <Content Include="Content\extra-images\employer-detail-logo-1.png" />
+    <Content Include="Content\extra-images\employer-gallery-1.jpg" />
+    <Content Include="Content\extra-images\employer-gallery-2.jpg" />
+    <Content Include="Content\extra-images\employer-gallery-3.jpg" />
+    <Content Include="Content\extra-images\employer-gallery-4.jpg" />
+    <Content Include="Content\extra-images\employer-gallery-5.jpg" />
+    <Content Include="Content\extra-images\employer-list-thumb-1.jpg" />
+    <Content Include="Content\extra-images\employer-list-thumb-2.jpg" />
+    <Content Include="Content\extra-images\employer-list-thumb-3.jpg" />
+    <Content Include="Content\extra-images\employer-list-thumb-4.jpg" />
+    <Content Include="Content\extra-images\featured-listing-1.jpg" />
+    <Content Include="Content\extra-images\featured-listing-2.jpg" />
+    <Content Include="Content\extra-images\featured-listing-3.jpg" />
+    <Content Include="Content\extra-images\featured-listing-4.jpg" />
+    <Content Include="Content\extra-images\featured-listing-5.jpg" />
+    <Content Include="Content\extra-images\featured-listing-6.jpg" />
+    <Content Include="Content\extra-images\job-detail-logo-1.png" />
+    <Content Include="Content\extra-images\job-grid-logo-1.png" />
+    <Content Include="Content\extra-images\job-grid-logo-10.png" />
+    <Content Include="Content\extra-images\job-grid-logo-11.png" />
+    <Content Include="Content\extra-images\job-grid-logo-12.png" />
+    <Content Include="Content\extra-images\job-grid-logo-2.png" />
+    <Content Include="Content\extra-images\job-grid-logo-3.png" />
+    <Content Include="Content\extra-images\job-grid-logo-4.png" />
+    <Content Include="Content\extra-images\job-grid-logo-5.png" />
+    <Content Include="Content\extra-images\job-grid-logo-6.png" />
+    <Content Include="Content\extra-images\job-grid-logo-7.png" />
+    <Content Include="Content\extra-images\job-grid-logo-8.png" />
+    <Content Include="Content\extra-images\job-grid-logo-9.png" />
+    <Content Include="Content\extra-images\job-listing-logo-1.png" />
+    <Content Include="Content\extra-images\job-listing-logo-2.png" />
+    <Content Include="Content\extra-images\job-listing-logo-3.png" />
+    <Content Include="Content\extra-images\job-listing-logo-4.png" />
+    <Content Include="Content\extra-images\job-listing-logo-5.png" />
+    <Content Include="Content\extra-images\job-listing-logo-6.png" />
+    <Content Include="Content\extra-images\job-listing-logo-7.png" />
+    <Content Include="Content\extra-images\job-listing-logo-8.png" />
+    <Content Include="Content\extra-images\jobdetail-add.jpg" />
+    <Content Include="Content\extra-images\jogdetail-subheader-bg.jpg" />
+    <Content Include="Content\extra-images\login-robot.png" />
+    <Content Include="Content\extra-images\multiple-logos.jpg" />
+    <Content Include="Content\extra-images\our-featured-slider-1.png" />
+    <Content Include="Content\extra-images\our-featured-slider-2.png" />
+    <Content Include="Content\extra-images\our-featured-slider-3.png" />
+    <Content Include="Content\extra-images\our-featured-slider-4.png" />
+    <Content Include="Content\extra-images\our-featured-slider-5.png" />
+    <Content Include="Content\extra-images\parallex-box-bg.png" />
+    <Content Include="Content\extra-images\parallex-text-box-bg.png" />
+    <Content Include="Content\extra-images\parallex-thumb-1.png" />
+    <Content Include="Content\extra-images\partner-logo-1.png" />
+    <Content Include="Content\extra-images\partner-logo-2.png" />
+    <Content Include="Content\extra-images\partner-logo-3.png" />
+    <Content Include="Content\extra-images\partner-logo-4.png" />
+    <Content Include="Content\extra-images\partner-logo-5.png" />
+    <Content Include="Content\extra-images\partner-logo-6.png" />
+    <Content Include="Content\extra-images\payment-method-card-5.jpg" />
+    <Content Include="Content\extra-images\resumes-list-thumb-1.jpg" />
+    <Content Include="Content\extra-images\service-pattren-bg.jpg" />
+    <Content Include="Content\extra-images\subheader-bg.jpg" />
+    <Content Include="Content\extra-images\testimonial-thumb-1.jpg" />
+    <Content Include="Content\extra-images\widget-contact-captcha.jpg" />
+    <Content Include="Content\fontawesome\css\fa-brands.css" />
+    <Content Include="Content\fontawesome\css\fa-brands.min.css" />
+    <Content Include="Content\fontawesome\css\fa-regular.css" />
+    <Content Include="Content\fontawesome\css\fa-regular.min.css" />
+    <Content Include="Content\fontawesome\css\fa-solid.css" />
+    <Content Include="Content\fontawesome\css\fa-solid.min.css" />
+    <Content Include="Content\fontawesome\css\fontawesome-all.css" />
+    <Content Include="Content\fontawesome\css\fontawesome-all.min.css" />
+    <Content Include="Content\fontawesome\css\fontawesome.css" />
+    <Content Include="Content\fontawesome\css\fontawesome.min.css" />
+    <Content Include="Content\fontawesome\webfonts\fa-brands-400.svg" />
+    <Content Include="Content\fontawesome\webfonts\fa-regular-400.svg" />
+    <Content Include="Content\fontawesome\webfonts\fa-solid-900.svg" />
+    <Content Include="Content\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\Backend\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\Backend\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\Backend\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\Backend\fonts\glyphicons-halflings-regulard41d.eot" />
+    <Content Include="Content\Backend\plugins\font-awesome\fonts\fontawesome-webfontd41dd41d.eot" />
+    <Content Include="Content\Backend\plugins\font-awesome\fonts\fontawesome-webfonte0a5e0a5.eot" />
+    <Content Include="Content\Backend\plugins\font-awesome\fonts\fontawesome-webfonte0a5e0a5.ttf" />
+    <Content Include="Content\Backend\plugins\font-awesome\fonts\fontawesome-webfonte0a5e0a5.woff" />
+    <None Include="Content\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\images\032b650b-e9fe-4b96-899a-abb9b66945af.jpg" />
+    <Content Include="Content\images\0757b814-b6e8-46d3-a612-4aed1f9f799a.jpg" />
+    <Content Include="Content\images\09db9382-d669-4406-9124-7ec4dc1d155c.jpg" />
+    <Content Include="Content\images\0b6b05fe-800d-4adb-854f-b2ffb8fbdb7c.jpg" />
+    <Content Include="Content\images\0e3c72ee-c9ec-4daf-82d1-9cc056b658da.jpg" />
+    <Content Include="Content\images\10e7012a-3c1e-402e-91e9-b1dd9e2a62f5.jpg" />
+    <Content Include="Content\images\1a7870e8-833d-40cb-a7c6-f03f9f8d5d1d.jpg" />
+    <Content Include="Content\images\1cacbeee-b84d-443f-af64-354e4f637e58.jpg" />
+    <Content Include="Content\images\1d3bc321-a3f9-4072-bfcf-77679a8ee35f.png" />
+    <Content Include="Content\images\24a3a86c-1e34-43ed-bfa2-dc954c252db6.jpg" />
+    <Content Include="Content\images\3750efc7-70db-4c0d-98d4-fb3a04f1cf84.jpg" />
+    <Content Include="Content\images\4100e451-54f3-4711-9434-87b241026568.jpg" />
+    <Content Include="Content\images\4d578a39-368c-45ac-9e4e-cdad667cfee2.jpg" />
+    <Content Include="Content\images\519866d2-1893-48a5-9ce5-23e86316e2dd.jpg" />
+    <Content Include="Content\images\5d86b642-0741-423a-a991-cb219edea1e6.jpg" />
+    <Content Include="Content\images\6731854e-3e90-4d38-bdc7-f71ec672c0b1.jpg" />
+    <Content Include="Content\images\68b15925-88c7-4f83-9e47-87baa7bee02b.jpg" />
+    <Content Include="Content\images\6fefcce5-6be9-431a-b7ff-87b61e1a113b.jpg" />
+    <Content Include="Content\images\71199702-0b70-47a8-b9c7-6481aad5c554.jpg" />
+    <Content Include="Content\images\72b74612-400d-4174-8f3a-23045868c46e.jpg" />
+    <Content Include="Content\images\78ce2d75-ab78-47f7-b403-630aa130de3e.jpg" />
+    <Content Include="Content\images\794ea075-264c-4f2f-8d6b-94d4bf2604d0.jpg" />
+    <Content Include="Content\images\86cba30e-7410-443b-85c3-9ae6b7bc0f54.jpg" />
+    <Content Include="Content\images\86df2ce3-2370-48bf-8c22-ad2e9bc2e15c.jpg" />
+    <Content Include="Content\images\8bd5b106-3ca3-4b7e-800d-3001b3f21908.jpg" />
+    <Content Include="Content\images\8d5242b6-f203-4017-9e14-831d16a60a8d.jpg" />
+    <Content Include="Content\images\9a91ef7b-eea9-40ec-b1de-a02f2b13c048.jpg" />
+    <Content Include="Content\images\a3605c00-f95f-470d-89c8-b3bb178bf184.jpg" />
+    <Content Include="Content\images\a3cef3ea-3778-444a-8551-c7bd0f610e52.jpg" />
+    <Content Include="Content\images\a72f5ef3-f32f-4f15-bdc3-be4930c4a926.png" />
+    <Content Include="Content\images\a78d4ed6-1423-4a97-89ec-59a39855a552.jpg" />
+    <Content Include="Content\images\a968761a-1448-44c7-8b63-71fb0d4c446c.jpg" />
+    <Content Include="Content\images\a9995472-dede-45e0-a23a-7408b7901cce.jpg" />
+    <Content Include="Content\images\ad978616-aa9e-4b43-a642-d81583db1736.jpg" />
+    <Content Include="Content\images\avatar.png" />
+    <Content Include="Content\images\c806fa28-1b9a-4f97-a725-0ffa70d9d2f8.jpg" />
+    <Content Include="Content\images\d4d9cf5d-9d71-4c12-a65d-d4ed39a69d5d.jpg" />
+    <Content Include="Content\images\d957a847-0ac4-4c3f-9150-97d340b647dc.jpg" />
+    <Content Include="Content\images\dc52ed46-ecfb-4ab3-86aa-9babbd0d9478.jpg" />
+    <Content Include="Content\images\e31d9a0c-b3b0-4015-927d-857547c502ab.jpg" />
+    <Content Include="Content\images\e581c4bf-e723-4d29-b8ec-a21c2e17ac1f.jpg" />
+    <Content Include="Content\images\e9858cd7-e9cb-4d39-bfb1-c94fc59e78e0.jpg" />
+    <Content Include="Content\images\ec742860-c087-4bcb-9413-4e42facab95b.jpg" />
+    <Content Include="Content\images\employer-confirmation-icon.png" />
+    <Content Include="Content\images\employer-profile-nonphoto.png" />
+    <Content Include="Content\images\fancybox\blank.gif" />
+    <Content Include="Content\images\fancybox\fancybox_loading%402x.gif" />
+    <Content Include="Content\images\fancybox\fancybox_overlay.png" />
+    <Content Include="Content\images\fancybox\fancybox_sprite%402x.png" />
+    <Content Include="Content\images\fancybox\fancybox_sprite.png" />
+    <Content Include="Content\images\footer-logo.png" />
+    <Content Include="Content\images\logo.png" />
+    <Content Include="Content\images\payment-method-card-1.jpg" />
+    <Content Include="Content\images\payment-method-card-2.jpg" />
+    <Content Include="Content\images\payment-method-card-3.jpg" />
+    <Content Include="Content\images\payment-method-card-4.jpg" />
+    <Content Include="Content\images\rating-star.png" />
+    <Content Include="Content\jquery-confirm\css\jquery-confirm.css" />
+    <Content Include="Content\jquery-confirm\jquery-confirm.js" />
+    <Content Include="Content\notification\css\freenbar.css" />
+    <Content Include="Content\notification\img\authkey.png" />
+    <Content Include="Content\notification\img\freenbar-logo.png" />
+    <Content Include="Content\notification\js\freenbar.min.js" />
+    <Content Include="Content\PagedList.css" />
+    <Content Include="Content\plugin-css\fancybox.css" />
+    <Content Include="Content\plugin-css\plugin.css" />
+    <Content Include="Content\plugin-script\counter.js" />
+    <Content Include="Content\plugin-script\fancybox.pack.js" />
+    <Content Include="Content\plugin-script\functions.js" />
+    <Content Include="Content\plugin-script\isotope.min.js" />
+    <Content Include="Content\plugin-script\progressbar.js" />
+    <Content Include="Content\script\404.js" />
+    <Content Include="Content\script\bootstrap.js" />
+    <Content Include="Content\script\functions.js" />
+    <Content Include="Content\script\jquery.js" />
+    <Content Include="Content\script\pagination.js" />
+    <Content Include="Content\script\slick-slider.js" />
+    <Content Include="Content\Select2\select2.css" />
+    <Content Include="Content\Select2\select2.full.min.js" />
+    <Content Include="Content\Select2\select2.js" />
+    <Content Include="Content\style.css" />
+    <Content Include="Content\summernote\summernote.css" />
+    <Content Include="Content\summernote\summernote.js" />
+    <Content Include="Content\tagsinput\bootstrap-tagsinput.css" />
+    <Content Include="Content\tagsinput\bootstrap-tagsinput.js" />
+    <Content Include="Content\tagsinput\fm.tagator.jquery.css" />
+    <Content Include="Content\tagsinput\fm.tagator.jquery.js" />
+    <Content Include="Content\tagsinput\fm.tagator.jquery.min.css" />
+    <Content Include="Content\tagsinput\typeahed.js" />
+    <Content Include="Global.asax" />
+    <Content Include="Models\myCareer.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>myCareer.edmx</DependentUpon>
+      <LastGenOutput>myCareer.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\myCareer.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>myCareer.edmx</DependentUpon>
+      <LastGenOutput>myCareer.cs</LastGenOutput>
+    </Content>
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\summernote\font\summernote.eot" />
+    <Content Include="Content\summernote\font\summernote.ttf" />
+    <Content Include="Content\summernote\font\summernote.woff" />
+    <Content Include="Content\jquery-confirm\css\jquery-confirm.less" />
+    <EntityDeploy Include="Models\myCareer.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>myCareer.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\myCareer.edmx.diagram">
+      <DependentUpon>myCareer.edmx</DependentUpon>
+    </Content>
+    <None Include="Properties\PublishProfiles\myCareer.pubxml" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <None Include="Scripts\_references.js" />
+    <Content Include="Static\login.html" />
+    <Content Include="Static\message.html" />
+    <Content Include="Static\sendToEmployer.html" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Apriori\Apriori.cs" />
+    <Compile Include="Apriori\AprioriMining.cs" />
+    <Compile Include="Apriori\AssociationRule.cs" />
+    <Compile Include="Apriori\Bit.cs" />
+    <Compile Include="Apriori\Itemset.cs" />
+    <Compile Include="Apriori\ItemsetCollection.cs" />
+    <Compile Include="Apriori\Recommendation.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BackendController.cs" />
+    <Compile Include="Controllers\EmployerController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\JobseekerController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\Md5Calculator.cs" />
+    <Compile Include="Controllers\RegisterController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Account.cs" />
+    <Compile Include="Models\AccountModel.cs" />
+    <Compile Include="Models\application.cs">
+      <DependentUpon>myCareer.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ApplicationDetailedViewModel.cs" />
+    <Compile Include="Models\ApplicationViewModel.cs" />
+    <Compile Include="Models\company_type.cs">
+      <DependentUpon>myCareer.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CvModel.cs" />
+    <Compile Include="Models\email_verification.cs">
+      <DependentUpon>myCareer.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\employer.cs" />
+    <Compile Include="Models\employerList.cs" />
+    <Compile Include="Models\employer_info.cs">
+      <DependentUpon>myCareer.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\employer_social.cs">
+      <DependentUpon>myCareer.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HomeViewModel.cs" />
+    <Compile Include="Models\interest.cs">
+      <DependentUpon>myCareer.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InterestDetailedviewModel.cs" />
+    <Compile Include="Models\InterestViewModel.cs" />
+    <Compile Include="Models\itemset.cs">
+      <DependentUpon>myCareer.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\job.cs">
+      <DependentUpon>myCareer.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\jobdetails.cs" />
+    <Compile Include="Models\JobseekerDetailedModel.cs" />
+    <Compile Include="Models\jobseekerView.cs" />
+    <Compile Include="Models\jobseeker_education.cs">
+      <DependentUpon>myCareer.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\jobseeker_info.cs">
+      <DependentUpon>myCareer.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\job_categories.cs">
+      <DependentUpon>myCareer.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\job_model.cs" />
+    <Compile Include="Models\js_experience.cs">
+      <DependentUpon>myCareer.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\message.cs">
+      <DependentUpon>myCareer.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\myCareer.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>myCareer.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\myCareer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>myCareer.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\myCareer.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>myCareer.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\nepal_district.cs">
+      <DependentUpon>myCareer.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\registration_type.cs">
+      <DependentUpon>myCareer.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\shortlist.cs">
+      <DependentUpon>myCareer.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ShortListViewModel.cs" />
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>myCareer.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_cv.cs">
+      <DependentUpon>myCareer.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\user.cs">
+      <DependentUpon>myCareer.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\MyAuthorizeAttribute.cs" />
+    <Compile Include="Security\PrincipalController.cs" />
+    <Compile Include="Security\SessionPersister.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\web.config" />
+    <Content Include="packages.config" />
+    <None Include="Content\fonts\fontawesome-webfont.eot" />
+    <None Include="Content\fonts\icomoon.eot" />
+    <Content Include="Content\fonts\icomoon.svg" />
+    <None Include="Content\fonts\icomoon.ttf" />
+    <None Include="Content\fonts\icomoon.woff" />
+    <Content Include="Views\Layouts\Frontend\_Frontend.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Content\fontawesome\less\fa-brands.less" />
+    <Content Include="Content\fontawesome\less\fa-regular.less" />
+    <Content Include="Content\fontawesome\less\fa-solid.less" />
+    <Content Include="Content\fontawesome\less\fontawesome.less" />
+    <Content Include="Content\fontawesome\less\_animated.less" />
+    <Content Include="Content\fontawesome\less\_bordered-pulled.less" />
+    <Content Include="Content\fontawesome\less\_core.less" />
+    <Content Include="Content\fontawesome\less\_fixed-width.less" />
+    <Content Include="Content\fontawesome\less\_icons.less" />
+    <Content Include="Content\fontawesome\less\_larger.less" />
+    <Content Include="Content\fontawesome\less\_list.less" />
+    <Content Include="Content\fontawesome\less\_mixins.less" />
+    <Content Include="Content\fontawesome\less\_rotated-flipped.less" />
+    <Content Include="Content\fontawesome\less\_screen-reader.less" />
+    <Content Include="Content\fontawesome\less\_stacked.less" />
+    <Content Include="Content\fontawesome\less\_variables.less" />
+    <Content Include="Content\fontawesome\scss\fa-brands.scss" />
+    <Content Include="Content\fontawesome\scss\fa-regular.scss" />
+    <Content Include="Content\fontawesome\scss\fa-solid.scss" />
+    <Content Include="Content\fontawesome\scss\fontawesome.scss" />
+    <Content Include="Content\fontawesome\scss\_animated.scss" />
+    <Content Include="Content\fontawesome\scss\_bordered-pulled.scss" />
+    <Content Include="Content\fontawesome\scss\_core.scss" />
+    <Content Include="Content\fontawesome\scss\_fixed-width.scss" />
+    <Content Include="Content\fontawesome\scss\_icons.scss" />
+    <Content Include="Content\fontawesome\scss\_larger.scss" />
+    <Content Include="Content\fontawesome\scss\_list.scss" />
+    <Content Include="Content\fontawesome\scss\_mixins.scss" />
+    <Content Include="Content\fontawesome\scss\_rotated-flipped.scss" />
+    <Content Include="Content\fontawesome\scss\_screen-reader.scss" />
+    <Content Include="Content\fontawesome\scss\_stacked.scss" />
+    <Content Include="Content\fontawesome\scss\_variables.scss" />
+    <Content Include="Content\fontawesome\webfonts\fa-brands-400.eot" />
+    <Content Include="Content\fontawesome\webfonts\fa-brands-400.ttf" />
+    <Content Include="Content\fontawesome\webfonts\fa-brands-400.woff" />
+    <Content Include="Content\fontawesome\webfonts\fa-brands-400.woff2" />
+    <Content Include="Content\fontawesome\webfonts\fa-regular-400.eot" />
+    <Content Include="Content\fontawesome\webfonts\fa-regular-400.ttf" />
+    <Content Include="Content\fontawesome\webfonts\fa-regular-400.woff" />
+    <Content Include="Content\fontawesome\webfonts\fa-regular-400.woff2" />
+    <Content Include="Content\fontawesome\webfonts\fa-solid-900.eot" />
+    <Content Include="Content\fontawesome\webfonts\fa-solid-900.ttf" />
+    <Content Include="Content\fontawesome\webfonts\fa-solid-900.woff" />
+    <Content Include="Content\fontawesome\webfonts\fa-solid-900.woff2" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Register\jobSeeker_reg.cshtml" />
+    <Content Include="Views\Jobseeker\Register.cshtml" />
+    <Content Include="Views\Employer\Register.cshtml" />
+    <Content Include="Views\Employer\EmployerProfile.cshtml" />
+    <Content Include="Views\Home\EmployerList.cshtml" />
+    <Content Include="Views\Shared\_employerHeader.cshtml" />
+    <Content Include="Views\Employer\postJob.cshtml" />
+    <Content Include="Views\Layouts\_BackendLayout.cshtml" />
+    <Content Include="Views\Backend\employersList.cshtml" />
+    <Content Include="Views\Backend\jobseekerList.cshtml" />
+    <Content Include="Views\Backend\Login.cshtml" />
+    <Content Include="Views\Backend\Industries.cshtml" />
+    <Content Include="Views\Shared\_loginSection.cshtml" />
+    <Content Include="Views\Employer\manageJobs.cshtml" />
+    <Content Include="Views\Employer\jobDetails.cshtml" />
+    <Content Include="Views\Login\login.cshtml" />
+    <Content Include="Views\Employer\editDetails.cshtml" />
+    <Content Include="Views\Home\jobListing.cshtml" />
+    <Content Include="Views\Home\jobListingajax.cshtml" />
+    <Content Include="Views\Home\jobdetail.cshtml" />
+    <Content Include="Views\Employer\interestedCandidates.cshtml" />
+    <Content Include="Views\Employer\shortListedCandidates.cshtml" />
+    <Content Include="Views\Jobseeker\jobseekerDashboard.cshtml" />
+    <Content Include="Views\Shared\_jobseekerHeader.cshtml" />
+    <Content Include="Views\Jobseeker\savedJobs.cshtml" />
+    <Content Include="Views\Jobseeker\appliedJobs.cshtml" />
+    <Content Include="Views\Jobseeker\ManageResume.cshtml" />
+    <Content Include="Views\Home\employer_profile.cshtml" />
+    <Content Include="Views\Home\jobseeker_profile.cshtml" />
+    <Content Include="Views\Employer\changePassword.cshtml" />
+    <Content Include="Views\Jobseeker\changePassword.cshtml" />
+    <Content Include="Views\Home\employer_listajax.cshtml" />
+    <Content Include="Views\Test\Index.cshtml" />
+    <Content Include="Views\Backend\jobs.cshtml" />
+    <Content Include="Views\Backend\Applications.cshtml" />
+    <Content Include="Views\Backend\jobDetail.cshtml" />
+    <Content Include="Views\Backend\jobseekerdetail.cshtml" />
+    <Content Include="Views\Jobseeker\editDetails.cshtml" />
+    <Content Include="Views\Home\contactus.cshtml" />
+    <Content Include="Views\Home\PageNotFound.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Content\Backend\plugins\animate-css\" />
+    <Folder Include="Content\Backend\plugins\bootstrap3-editable\css\" />
+    <Folder Include="Content\Backend\plugins\fooTable\css\" />
+    <Folder Include="Content\Backend\plugins\jquery-ricksaw-chart\css\" />
+    <Folder Include="Content\Backend\plugins\weather-icons\" />
+    <Folder Include="Content\Files\" />
+    <Folder Include="Content\html\" />
+    <Folder Include="Content\pdfs\" />
+    <Folder Include="Views\Principal\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>52920</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:52920/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

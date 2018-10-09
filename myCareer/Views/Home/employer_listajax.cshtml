@@ -1,0 +1,99 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<myCareer.Models.employerList>
+ <div class="careerfy-filterable">
+    <h2><span id="resultCount"></span></h2>
+    <ul>
+
+        <li><a onclick="setGrid()"><i class="careerfy-icon careerfy-squares @if (ViewBag.display == "grid" || ViewBag.display == null) { <text>manualActive</text>} " id="grid"></i> Grid</a></li>
+        <li><a onclick=" return setListg()"><i class="careerfy-icon careerfy-list  @if (ViewBag.display == "list") { <text>manualActive</text>}" id="list"></i> List</a></li>
+    </ul>
+</div>
+<div class="careerfy-employer @if (ViewBag.display == "list") {<text>careerfy-employer-list</text> } else {<text>careerfy-employer-grid</text> } ">
+    @if (ViewBag.display == "list")
+    {
+
+        <ul class="careerfy-row">
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <li class="careerfy-column-12">
+                    <div class="careerfy-table-layer">
+                        <div class="careerfy-table-row">
+                            <div class="careerfy-table-cell"> <figure><a href="#"><img src="@Url.Content("~/Content/Images")/@Model[i].logo" alt=""></a></figure> </div>
+                            <div class="careerfy-table-cell">
+                                <small>@Model[i].category_name</small>
+                                <h2><a href="@Url.Action("employer_profile", "home")/?emp_id=@Model[i].emp_id">@Model[i].company_name</a></h2>
+                                <span><i class="fa fa-map-marker"></i> @Model[i].Address </span>
+                            </div>
+                            <div class="careerfy-table-cell">@Model[i].email</div>
+                            <div class="careerfy-table-cell">
+                                <a href="@Url.Action("employer_profile", "home")/?emp_id=@Model[i].emp_id" class="careerfy-employer-list-btn">@Model[i].postedjobs Vacancies</a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            }
+        </ul>
+
+    }
+    else
+    {
+        <ul class="careerfy-row">
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                if (i%3 == 0)
+                {
+                    <text>
+                        <li class="careerfy-column-12" style="margin-top:-20px">
+                    </text>
+                }
+            <li class="careerfy-column-4">
+                <div class="careerfy-employer-grid-wrap">
+                    <figure>
+                        <a href="#" class="careerfy-employer-grid-image"><img src="@Url.Content("~/Content/Images")/@Model[i].logo" alt=""></a>
+                        <figcaption>
+                            <small>@Model[i].category_name</small>
+                            <h2><a href="@Url.Action("employer_profile","home")/?emp_id=@Model[i].emp_id">@Model[i].company_name</a></h2>
+                            <span>@Model[i].Address </span>
+                        </figcaption>
+                    </figure>
+                </div>
+                <a href="@Url.Action("employer_profile", "home")/?emp_id=@Model[i].emp_id" class="careerfy-employer-grid-btn">@Model[i].postedjobs Jobs</a>
+            </li>
+                if ((i + 1 ) % 3 == 0)
+                {@Html.Raw("</li>") }
+            }
+
+        </ul>
+    }
+
+    @if (Model.Count == 0)
+    {
+        <h2 class="careerfy-fancy-title" style="color:red">No results found! </h2>
+    }
+</div>
+<div class="careerfy-pagination-blog">
+    @Html.PagedListPager(Model, page => Url.Action("employer_listajax", "home",
+                                      new
+                                      {
+                                          page,
+                                          display = Request.QueryString["display"],
+                                          time = Request.QueryString["time"],
+                                          cat = Request.QueryString["cat"],
+                                          searchkey = Request.QueryString["searchkey"]
+                                      }),
+                                   PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions
+                                   {
+                                       Display = PagedListDisplayMode.IfNeeded,
+                                       MaximumPageNumbersToDisplay = 5
+                                   },
+                                   new AjaxOptions
+                                   {
+                                       InsertionMode = InsertionMode.Replace,
+                                       HttpMethod = "Get",
+                                       UpdateTargetId = "datatoshow"
+                                   }))
+
+
+</div>
+
+

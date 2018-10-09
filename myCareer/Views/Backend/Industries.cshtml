@@ -1,0 +1,150 @@
+﻿
+@{
+    ViewBag.Title = "Industries";
+    Layout = "~/Views/Layouts/_BackendLayout.cshtml";
+    ViewBag.active = "industries";
+
+}
+@section head
+{
+    <link href="@Url.Content("~/Content/Backend/plugins/datatables/media/css/dataTables.bootstrap.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/Backend/plugins/datatables/extensions/Responsive/css/dataTables.responsive.css")" rel="stylesheet">
+}
+<div class="panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">Industries List <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#industries" style="margin-top:10px">Add New</button> </h3>
+    </div>
+    <div class="panel-body">
+        <table id="industry" class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>SN</th>
+                    <th>Industry ID</th>
+                    <th>Industry Name</th>
+                    <th align="center">Status</th>
+                    <th align="center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ int rowNo = 0; }
+                @foreach (var item in ViewBag.list)
+                {
+                    <tr>
+                        <td>@(rowNo += 1)</td>
+                        <td>@item.id</td>
+                        <td>@item.category_name</td>
+                        <td align="center">
+                            @if (item.status == "TRUE")
+                        {<text><span class="label label-success">Active</span></text> }
+                        else
+                        {<text><span class="label label-danger">Inactive</span></text>}
+                    </td>
+                    <td align="center">
+                        @if (item.status == "TRUE")
+                        {<text><a href="" class="label label-dark" onclick="change(@rowNo,@item.id)">Disable</a></text> }
+                        else
+                        {<text><a href="" class="label label-primary" onclick="change(@rowNo,@item.id)">Enable</a></text> }
+
+                </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="modal fade" id="industries" tabindex="-1" role="dialog" aria-labelledby="industries" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-primary" role="document">
+        <div class="modal-content">
+            <form method="post" id="industryForm">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add new Industry</h5>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row" style="margin:10px;">
+                        <div class="form-group">
+                            <label>Industry Name:</label>
+                            <input type="text" name="industryName" id="industryName" class="form-control" required autofocus />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="resetBtn" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="insert()">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function change(row,id)
+    {
+        jQuery.ajax({
+            type: 'POST',
+            url: '@Url.Action("changeIndustryStatus", "Backend")',
+            data: {id:id},
+            dataType: "json",
+            success: function (result) {
+                if (result.success) {
+                    if (result.status == "TRUE") {
+                        $('#industry tr:nth-child(' + row + ') td:nth-child(5)').html('<a href="#" class="label label-dark" onclick="change(' + row + ',' + id + ')">Disable</a>');
+                        $('#industry tr:nth-child(' + row + ') td:nth-child(4)').html('<span class="label label-success">Active</span>');
+                    }
+                    else
+                    {
+                    $('#industry tr:nth-child(' + row + ') td:nth-child(5)').html('<a href="#" class="label label-primary" onclick="change(' + row + ',' + id + ')">Enable</a>');
+                    $('#industry tr:nth-child(' + row + ') td:nth-child(4)').html('<span class="label label-danger">Inactive</span>');
+                }
+                }
+                else {
+                    alert(result.errorMsg);
+                }
+            }
+        });
+    }
+    function insert() {
+        var name = $('#industryName').val();
+        var formData = $('#industryForm').serialize();
+        jQuery.ajax({
+            type: 'POST',
+            url: '@Url.Action("addIndustry", "Backend")',
+            data: formData,
+            dataType: "json",
+            success: function (result) {
+                if (result.successMsg) {
+                    alert(result.successMsg);
+                    $("#resetBtn").click();
+                    $('#industryName').val("");
+                    $('#industry tbody') // select table tbody
+                        .append('<tr />') // append table row
+                        .children('tr:last') // select row we just created
+                        .append('<td>' + (parseInt(@rowNo) + 1) + '</td><td>' + result.insertId + ' </td><td>' + name + '</td> <td align="center"><span class="label label-success">Active</span></text></td> <td align="center"><a href="#" class="label label-danger">Disable</a></td>'); // append four table cells to the row we created
+                }
+                else {
+                    alert(result.errorMsg);
+                }
+            }
+        });
+    }
+     $(window).on('load', function () {
+        $('# industry').dataTable({
+            "responsive": true,
+            "language": {
+                "paginate": {
+                    "previous": '<i class="fa fa-angle-left"></i>',
+                    "next": '<i class="fa fa-angle-right"></i>'
+                }
+            }
+        });
+    });
+</script>
+<script src="@Url.Content("~/Content/Backend/plugins/datatables/media/js/jquery.dataTables.js")"></script>
+<script src="@Url.Content("~/Content/Backend/plugins/datatables/media/js/dataTables.bootstrap.js")"></script>
+<script src="@Url.Content("~/Content/Backend/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js")"></script>
+
+
+
+
+
+

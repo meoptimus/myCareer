@@ -1,0 +1,404 @@
+﻿@model myCareer.Models.JobseekerDetailedModel
+@{
+    ViewBag.Title = "Manage Resumes";
+    Layout = "~/Views/Layouts/Frontend/_Frontend.cshtml";
+    ViewBag.activeStatus = "manageresumes";
+}
+<script src="~/Content/tagsinput/fm.tagator.jquery.js"></script>
+<link href="~/Content/tagsinput/fm.tagator.jquery.css" rel="stylesheet" />
+
+<link href="~/Content/summernote/summernote.css" rel="stylesheet" />
+<div class="careerfy-main-content">
+    <div class="careerfy-main-section careerfy-dashboard-fulltwo">
+        <div class="container">
+            <div class="row">
+                @Html.Partial("_jobseekerHeader", (String)ViewBag.activeStatus)
+                <div class="careerfy-column-9">
+                    <div class="careerfy-typo-wrap">
+                        @*<form class="">*@
+                            <div class="careerfy-employer-box-section">
+                                <div class="careerfy-profile-title"><h2>My Resume</h2></div>
+                                <div class="careerfy-candidate-section">
+                                    <form method="post" action="@Url.Action("ManageResume", "jobseeker")" enctype="multipart/form-data" name="cvform" class="careerfy-candidate-dasboard col-sm-5" >
+                                        <label>Upload CV(docx):</label>
+                                        <div class="careerfy-upload-cv">
+                                            <input class="careerfy-disabled-input"  type="file" name="cv" id="cv" accept=".docx,.doc"  placeholder="Samaple_CV.pdf" />
+                                            <div class="careerfy-cvupload-file">
+                                                <span><i class="careerfy-icon careerfy-arrows-2"></i> Upload CV</span>
+                                                <input id="careerfy-uploadbtn" type="submit" class="careerfy-upload-btn" />
+                                            </div>
+                                            <p>Suitable files are .doc,docx. (exclude the personal, educational, and experience details. These informations are added dynamically during cv download. )</p>
+                                        </div>
+
+                                    </form>
+                                    
+                                    <div class="careerfy-candidate-title" style="margin-top:-50px;"> <h2><i class="careerfy-icon careerfy-resume-1"></i>Edit CV</h2><button type="button" style="margin-top:-30px;" class="careerfy-resume-addbtn bg-red pull-right" onclick="updateCv()">Update</button>
+ </div>
+                                    <div class="col-md-12" style="margin-top:-20px;margin-bottom:20px;">
+                                        <textarea class="text-box multi-line" data-val="true" data-val-required="The description field is required." id="description" name="description"></textarea>
+
+                                    </div>
+                                    <div class="careerfy-candidate-resume-wrap">
+                                        <div class="careerfy-candidate-title">
+                                            <h2>
+                                                <i class="careerfy-icon careerfy-mortarboard"></i> Education
+                                                <a href="javascript:void(0)" class="careerfy-resume-addbtn"><span class="fa fa-plus"></span> Add education</a>
+                                            </h2>
+                                        </div>
+                                        <form name="edupop" id="edupop">
+                                            <div class="careerfy-add-popup">
+                                                <ul class="careerfy-row careerfy-employer-profile-form">
+                                                    <li class="careerfy-column-12">
+                                                        <label>Title *</label>
+                                                        <input placeholder="Masters in Fine Arts" name="title" id="title"  type="text">
+                                                    </li>
+                                                    <li class="careerfy-column-6">
+                                                        <label>From Date *</label>
+                                                        <div class="careerfy-profile-select">
+                                                            <input placeholder="2014/05/08" name="start_date" id="start_date" type="date">
+                                                        </div>
+                                                    </li>
+                                                    <li class="careerfy-column-6">
+                                                        <label>To Date *</label>
+                                                        <div class="careerfy-profile-select">
+                                                            <input placeholder="2018/05/05" name="end_date" id="end_date" type="date">
+                                                        </div>
+                                                    </li>
+                                                    <li class="careerfy-column-12">
+                                                        <label>Institute *</label>
+                                                        <input placeholder="Tribhuwan University" name="institution" id="institution"  type="text">
+                                                    </li>
+                                                    <li class="careerfy-column-12">
+                                                        <input type="button" value="Add education" onclick="addEducation()" class="careerfy-resume-addbtn">
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </form>
+                                        <div class="careerfy-resume-education">
+                                            <ul class="careerfy-row" id="educationUL">
+                                               
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="careerfy-candidate-resume-wrap">
+                                        <div class="careerfy-candidate-title">
+                                            <h2>
+                                                <i class="careerfy-icon careerfy-social-media"></i> Experience
+                                                <a href="javascript:void(0)" class="careerfy-resume-addbtn"><span class="fa fa-plus"></span> Add experince</a>
+                                            </h2>
+                                        </div>
+
+                                        <div class="careerfy-add-popup">
+                                            <ul class="careerfy-row careerfy-employer-profile-form">
+                                                        <li class="careerfy-column-12">
+                                                        <label>Title *</label>
+                                                        <input placeholder="Masters in Fine Arts" name="etitle" id="etitle" type="text">
+                                                    </li>
+                                                    <li class="careerfy-column-6">
+                                                        <label>From Date *</label>
+                                                        <div class="careerfy-profile-select">
+                                                            <input placeholder="2014/05/08" name="estart_date" id="estart_date" type="date">
+                                                        </div>
+                                                    </li>
+                                                    <li class="careerfy-column-6">
+                                                        <label>To Date *</label>
+                                                        <div class="careerfy-profile-select">
+                                                            <input placeholder="2018/05/05" name="eend_date" id="eend_date" type="date">
+                                                        </div>
+                                                    </li>
+                                                    <li class="careerfy-column-12">
+                                                        <label>Institute *</label>
+                                                        <input placeholder="Tribhuwan University" name="einstitution" id="einstitution" type="text">
+                                                    </li>
+                                                    <li class="careerfy-column-12">
+                                                        <input type="button" value="Add education" onclick="addExperience()" class="careerfy-resume-addbtn">
+                                                    </li>
+                                            </ul>
+                                        </div>
+                                        <div class="careerfy-resume-education">
+                                            <ul class="careerfy-row" id="exUl">
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="careerfy-candidate-resume-wrap">
+                                        <div class="careerfy-candidate-title">
+                                            <h2>
+                                                <i class="careerfy-icon careerfy-design-skills"></i> Skills
+                                                <a href="javascript:void(0)" class="careerfy-resume-addbtn"><span class="fa fa-plus"></span> Add Skills</a>
+                                            </h2>
+                                        </div>
+
+                                        <div class="careerfy-add-popup">
+                                            <ul class="careerfy-row careerfy-employer-profile-form">
+                                                <li class="careerfy-column-12">
+                                                    <label>Skills(comma separated))</label>
+                                                    <input class="form-control" id="skills" name="skillss"  type="text" style="width:100%">
+                                                <li class="careerfy-column-12">
+                                                    <input type="submit" value="Add Skills" onclick="updateSkills()">
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="careerfy-add-skills">
+                                            <ul class="careerfy-row" id="skillsset">                                               
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var values = [];
+    $(function () {
+        $.post("@Url.Action("skills", "jobseeker")", "")
+           .done(function (response, status, jqxhr) {
+               for (i = 0; i < response.length; i++) {
+                   values.push(response[i]);
+               }
+           })
+        
+    });
+    var datacv = "";
+    
+    
+    function ToJavaScriptDate(inputDate) {
+        var value = new Date(parseInt(inputDate.replace(/(^.*\()|([+-].*$)/g, '')));
+        var formattedDate = value.getMonth() + 1 + "/" + value.getDate() + "/" + value.getFullYear();
+        return formattedDate;
+    }
+    $(document).ready(function () {
+        $('#description').summernote({
+            tabsize: 2,
+            height: 300
+        });
+        $.ajax({
+            type: 'POST',
+            url: window.location.origin + "/jobseeker/getSkills",
+            data: '',
+            success: function (data) {
+                var array = data.split(',');
+                html = "";
+                if (array.length > 0)
+                {
+                    for(i=0;i<array.length;i++)
+                    {
+                        html+='<li class="careerfy-column-12">';
+                        html+='<div class="careerfy-add-skills-wrap">';
+                        html+='<span> - </span>';
+                        html+='<h2><a href="#">'+array[i]+'</a></h2>';
+                        html+='</div>';
+                        html+='</li>';
+                    }
+                }
+                $('#skillsset').html(html);
+                $('#skills').val(data)
+                var $input_tagator1 = $('#skills');
+                $input_tagator1.tagator({
+                    autocomplete: values,
+                });
+            },
+            error: function (data) {
+            }
+        });
+
+        $.post("@Url.Action("getCv", "jobseeker")", "")
+           .done(function(response, status, jqxhr){
+               datacv=response.replace(/(?:\r\n|\r|\n)/g, '<br>');
+               $('#description').summernote('code', response.replace(/(?:\r\n|\r|\n)/g, '<br>'));
+
+           })
+           .fail(function (jqxhr, status, error) {
+
+           });
+
+        setEducation();
+        setExperience();
+    })
+
+    function updateSkills()
+    {
+
+                 $.post("@Url.Action("changeSkills", "Jobseeker")",{val:$('#skills').val()})
+                    .done(function (response, status, jqxhr) {
+                        if (response == true){
+                            window.location.reload();
+                            $.alert("Sucessfully Updated");
+
+                        }
+                        else
+                            $.alert("Nothing changed!!");
+
+                    })
+                .fail(function (jqxhr, status, error) {
+                    $.alert("Something went wrong!!");
+                });
+    }
+   function updateCv()
+   {
+       $.post("@Url.Action("updateCv", "jobseeker")",{val:$('#description').val()})
+           .done(function (response, status, jqxhr) {
+                if (response == true)
+                   $.alert("Sucessfully Updated");
+               else
+                   $.alert("Nothing changed!!");
+
+           })
+       .fail(function (jqxhr, status, error) {
+           $.alert("Something went wrong!!");
+       });
+   }
+    function addEducation()
+    {
+        title=$('#title').val();
+        start_date=$('#start_date').val();
+        end_date=$('#end_date').val();
+        institution=$('#institution').val();
+        if(title=="" || start_date=="" || end_date=="" || institution=="")
+        {
+            $.alert("Validation error, Fill up the required fields");
+        }
+        else
+        {
+            $.post("@Url.Action("addEducation", "jobseeker")",$("#edupop").serialize())
+        .done(function (response, status, jqxhr) {
+            if (response == true)
+            {
+                $.alert("Sucessfully Added");
+                setEducation();
+            }
+            else
+                $.alert("Something went wrong!!!");
+
+        })
+    .fail(function (jqxhr, status, error) {
+        $.alert("Something went wrong!!");
+    });
+        }
+
+    }
+    function addExperience()
+    {
+        title=$('#etitle').val();
+        start_date=$('#estart_date').val();
+        end_date=$('#eend_date').val();
+        institution=$('#einstitution').val();
+        if(title=="" || start_date=="" || end_date=="" || institution=="")
+        {
+            $.alert("Validation error, Fill up the required fields");
+        }
+        else
+        {
+            $.post("@Url.Action("addExperience", "jobseeker")", { title: title, start_date: start_date, end_date: end_date, institution: institution })
+        .done(function (response, status, jqxhr) {
+                if (response == true) {
+                    $.alert("Sucessfully Added");
+                    setExperience();
+                }
+            else
+                $.alert("Something went wrong!!!");
+
+        })
+            .fail(function (jqxhr, status, error) {
+                $.alert("Something went wrong!!");
+            });
+        }
+
+    }
+    function setEducation()
+    {
+
+         $.post("@Url.Action("setEducation", "jobseeker")","")
+                    .done(function (response, status, jqxhr) {
+                        html = "";
+                        for (i = 0; i < response.length; i++)
+                        {
+                            start = ToJavaScriptDate(response[i].start_date);
+                            end = ToJavaScriptDate(response[i].end_date);
+                            html+='<li class="careerfy-column-12">';
+                            html+='<div class="careerfy-resume-education-wrap">';
+                            html += '<small>' +start  + ' -' + end+ '</small>';
+                            html += '<h2><a href="#">' + response[i].education_level + '</a></h2>';
+                            html += '<span>' + response[i].institution + '</span>';
+                            html+='</div>';
+                            html+='<div class="careerfy-resume-education-btn">';
+                            html+='<a href="#" onclick="removeEducation('+response[i].jsed_id +')" class="careerfy-icon careerfy-rubbish"></a>';
+                            html+='</div>';
+                            html+='</li>';
+                        }
+                        $('#educationUL').html(html);
+                    })
+                .fail(function (jqxhr, status, error) {
+                    $.alert("Something went wrong!!");
+                });
+    }
+    function setExperience()
+    {
+
+        $.post("@Url.Action("setExperience", "jobseeker")","")
+                   .done(function (response, status, jqxhr) {
+                       html = "";
+                       for (i = 0; i < response.length; i++)
+                       {
+                           start = ToJavaScriptDate(response[i].start_date);
+                           end = ToJavaScriptDate(response[i].end_date);
+                           html += '<li class="careerfy-column-12">';
+                           html+='<div class="careerfy-resume-education-wrap">';
+                           html += '<small>' + start + ' - ' + end + '</small>';
+                           html += '<h2><a href="#">' + response[i].title + '</a></h2>';
+                           html += '<span> ' + response[i].institution + '</span>';
+                           html+='</div>';
+                           html+='<div class="careerfy-resume-education-btn">';
+                           html += '<a href="removeExperience(' + response[i].js_excid + ')" class="careerfy-icon careerfy-rubbish"></a>';
+                           html+='</div>';
+                           html+=' </li>';
+                       }
+                       $('#exUl').html(html);
+                   })
+        .fail(function (jqxhr, status, error) {
+            $.alert("Something went wrong!!");
+        });
+    }
+    function removeEducation(jsed_id)
+    {
+           $.post("@Url.Action("removeEducation", "jobseeker")",{jsed_id:jsed_id})
+                .done(function (response, status, jqxhr) {
+                    if (response == true) {
+                        $.alert("Sucessfully Updated");
+                        setEducation();
+                    }
+                    else
+                        $.alert("Nothing changed!!");
+
+                })
+            .fail(function (jqxhr, status, error) {
+                $.alert("Something went wrong!!");
+            });
+    }
+    function removeExperience(jsed_id)
+    {
+                $.post("@Url.Action("removeExperience", "jobseeker")",{jsed_id:jsed_id})
+                    .done(function (response, status, jqxhr) {
+                        if (response == true) {
+                            $.alert("Sucessfully Updated");
+                            setExperience();
+                        }
+                        else
+                            $.alert("Nothing changed!!");
+
+                    })
+                .fail(function (jqxhr, status, error) {
+                    $.alert("Something went wrong!!");
+                });
+    }
+
+
+</script>
+<script src="~/Content/tagsinput/typeahed.js"></script>
+<script src="~/Content/summernote/summernote.js"></script>

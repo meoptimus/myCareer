@@ -1,0 +1,121 @@
+﻿@model myCareer.Models.JobseekerDetailedModel
+@{
+    ViewBag.Title = "jobseekerDashboard";
+    Layout = "~/Views/Layouts/Frontend/_Frontend.cshtml";
+    ViewBag.activeStatus = "jobseekerdashboard";
+}
+<div class="careerfy-main-content">
+    <div class="careerfy-main-section careerfy-dashboard-fulltwo">
+        <div class="container">
+            <div class="row">
+                @Html.Partial("_jobseekerHeader", (String)ViewBag.activeStatus)
+                <div class="careerfy-column-8">
+                    <div class="careerfy-typo-wrap" id="editblock">
+                        <div class="careerfy-candidate-editor">
+                            <button type="button" class="btn btn-primary pull-right" onclick="editDetails()">Edit Details</button>
+                            <div class="careerfy-content-title"><h2>@Model.full_name.ToString().ToUpper()</h2></div>
+                            <div class="careerfy-jobdetail-services">
+                                <ul class="careerfy-row">
+                                    <li class="careerfy-column-4">
+                                        <i class="careerfy-icon careerfy-social-media"></i>
+                                        <div class="careerfy-services-text">Last Login<small>@Model.updated_at</small></div>
+                                    </li>
+                                    <li class="careerfy-column-4">
+                                        <i class="careerfy-icon careerfy-briefcase"></i>
+                                        <div class="careerfy-services-text">Date Of Birth <small>@Model.dateofbirth</small></div>
+                                    </li>
+                                    <li class="careerfy-column-4">
+                                        <i class="careerfy-icon careerfy-user"></i>
+                                        <div class="careerfy-services-text">Gender <small>@Model.gender</small></div>
+                                    </li>
+                                   
+                                </ul>
+                            </div>
+
+                        <div class="jobsearch_progressbar_wrap">
+                            <div class="careerfy-row">
+                                <div class="careerfy-column-12">
+                                    <div class="careerfy-jobdetail-tags">
+                                        @{if (Model.skills != null)
+                                            {
+                                                <div class="careerfy-candidate-title"> <h2><i class="careerfy-icon careerfy-briefcase"></i> Skills</h2> </div>
+                                                List<string> names = Model.skills.Split(',').ToList<string>();
+                                                names.Reverse();
+                                                if (names.Count > 0)
+                                                {
+                                                    foreach (var text in names)
+                                                    {
+                                                        <a href="#">@text.ToUpper()</a>
+
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <h2> No data.</h2>
+                                                    }
+
+                                                }
+                                            }
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                            <div class="row">
+                                <table border="0">
+                                    <tr>
+                                        <td style="color:red">Full Name:</td>
+                                        <td style="color:cornflowerblue">@Model.full_name.ToUpper()</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="color:red">Current Address:</td>
+                                        <td style="color:cornflowerblue">@Model.current_address.ToUpper()</td>
+                                     </tr>
+                                    <tr>
+                                        <td style="color:red">Email:</td>
+                                        <td style="color:cornflowerblue">@Model.email.ToUpper()</td>
+                                     </tr>
+                                    <tr>
+                                        <td style="color:red">Email Verification:</td>
+                                        <td style="color:cornflowerblue">@if (Model.email_verified == "TRUE")
+                                        { <text>Yes</text> }
+                                        else { <text>No</text>}</td>
+                                        </tr>
+                                    <tr>
+                                        <td style="color:red">Contact:</td>
+                                        <td style="color:cornflowerblue">@Model.contact</td>
+                                        </tr>
+                                    <tr>
+                                        <td style="color:red">Last Updated at:</td>
+                                        <td style="color:cornflowerblue">@Model.updated_at</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="color:red">Date of Birth:</td>
+                                        <td style="color:cornflowerblue">@Model.dateofbirth</td>
+                                    </tr>
+                                  
+                                </table>
+                            </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script>
+    function editDetails()
+    {
+        jQuery.ajax({
+            type: 'get',
+            url: '@Url.Action("editDetails", "Jobseeker")',
+            success: function (result) {
+                $('#editblock').prepend(result);
+            }
+        });
+    }
+
+
+</script>
