@@ -528,7 +528,8 @@ namespace myCareer.Controllers
                 mess.read_status = 0;
                 mess.sender_address = email;
                 mess.sender_contact = phone;
-                mess.status = 1;
+                mess.status = 1;  
+
                 db.messages.Add(mess);
                 if (db.SaveChanges() > 0)
                 {
